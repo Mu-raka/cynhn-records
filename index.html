@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>青の記録｜CYNHN 年表</title>
+<meta name="description" content="CYNHN（スウィーニー）に関する出来事を日付順にまとめた、ファンによる非公式の年表。ライブ・リリース・リリースイベントなどをセットリスト・出典付きで紹介。">
+<meta property="og:title" content="青の記録｜CYNHN 年表">
+<meta property="og:description" content="CYNHNの出来事をセットリスト・出典付きでまとめた非公式年表">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ja_JP">
+<meta name="theme-color" content="#0F4C81">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@500;700;800&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<a class="skip" href="#list">出来事一覧へ移動</a>
+
+<header class="site">
+  <a class="brand" href="#" id="home-link">青の記録</a>
+  <nav>
+    <a href="#" id="nav-ov">年表</a>
+    <a id="request-link" href="#" target="_blank" rel="noopener">出来事の追加依頼</a>
+    <a href="#about" id="nav-about">この年表について</a>
+  </nav>
+</header>
+
+<main>
+  <section class="ov" id="ov" aria-labelledby="ov-title">
+    <h1 id="ov-title">CYNHN 年表</h1>
+    <div class="ov-scroll" id="ov-scroll" tabindex="0" aria-label="年ごとの主な出来事。年を押すとその年の一覧を開きます">
+      <ol class="ov-track" id="ov-track"></ol>
+    </div>
+  </section>
+
+  <section class="list" id="list" aria-labelledby="list-title">
+    <h2 id="list-title">出来事一覧</h2>
+    <p class="list-help" id="list-help" hidden>日付順。行を押すと出典が開きます。上の年表の年を押すと、その年に絞り込みます。</p>
+    <div class="controls">
+      <div class="ctrl-row">
+        <label class="search"><span class="visually-hidden">キーワードで探す</span>
+          <input id="q" type="search" placeholder="出来事・会場・曲名・メンバーで検索" autocomplete="off"></label>
+        <label><span class="visually-hidden">年</span><select id="f-year"></select></label>
+        <label><span class="visually-hidden">種別</span><select id="f-tag"></select></label>
+        <label><span class="visually-hidden">出典</span><select id="f-src"></select></label>
+      </div>
+      <div class="ctrl-row">
+        <label><span class="visually-hidden">重要度</span><select id="f-imp">
+          <option value="">すべての重要度</option><option value="3">★★★ のみ</option><option value="2">★★ 以上</option></select></label>
+        <label><span class="visually-hidden">メンバー</span><select id="f-member"></select></label>
+        <span class="count" id="count" aria-live="polite"></span>
+      </div>
+    </div>
+    <div id="rows" class="rows"></div>
+  </section>
+
+  <section class="about" id="about" aria-labelledby="about-title">
+    <h2 id="about-title">この年表について</h2>
+    <p>ファンが個人で作っている非公式の年表です。CYNHN・所属事務所・レーベルとは関係ありません。</p>
+    <p>出来事ごとに参照元ページへのリンクを付けています。記事や投稿の本文は転載していません。日付や内容の誤り、載っていない出来事に気づいたら<a id="request-link-2" href="#" target="_blank" rel="noopener">追加依頼</a>から教えてください。</p>
+    <h3>メンバーの在籍期間</h3>
+    <div class="lanes" id="lanes"></div>
+    <h3>参照しているページ</h3>
+    <div id="refs" class="refs"></div>
+    <h3>ご注意</h3>
+    <p>出来事の抽出・日付・出典の対応づけ、重要度や種別の分類は機械的に行っている部分があり、誤りが含まれる可能性があります。</p>
+    <p class="updated" id="updated"></p>
+  </section>
+</main>
+
+<footer class="site">
+  <p>非公式ファンサイト。掲載内容の権利は各権利者に帰属します。</p>
+</footer>
+
+<script src="assets/config.js"></script>
+<script src="assets/app.js"></script>
+</body>
+</html>
