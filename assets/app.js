@@ -30,7 +30,7 @@
     { key: "wiki", long: "Wikipedia", short: "WP", re: /wikipedia\.org/ },
     { key: "natalie", long: "音楽ナタリー", short: "ナタリー", re: /natalie\.mu/ },
     { key: "blog", long: "note・ブログ", short: "ブログ", re: /note\.com|ameblo\.jp|hatenablog|hateblo\.jp|hatenadiary|jugem\.jp|livedoor\.blog|blog\.jp|fc2\.com|seesaa|medium\.com/ },
-    { key: "x", long: "X（#CYNHN_setlist）", short: "X", re: /(^|\/\/)(x|twitter)\.com/ },
+    { key: "x", long: "Xの投稿", short: "X", re: /(^|\/\/)(x|twitter)\.com/ },
     { key: "press", long: "Webメディアの記事", short: "記事", re: /realsound|ototoy|barks|pia\.jp|impress|atpress|mikan|dot-yell|skiyaki|popnroll|billboard|kyodo|esrp2|skream|rooftop1976|galpo|joysound|storywriter|mikiki|cdjournal|usen\.com|getnews/ },
     { key: "livefans", long: "LiveFans", short: "LiveFans", re: /livefans/ }
   ];

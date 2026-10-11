@@ -314,6 +314,27 @@
    "id": 428086
   },
   {
+   "date": "2017-07-26",
+   "type": "event",
+   "title": "ディア氷（秋葉原ディアステージのかき氷屋）に綾瀬志希が出勤",
+   "note": "秋葉原ディアステージ 昼",
+   "hl": false,
+   "src": [
+    {
+     "label": "X（メンバー・公式の投稿）",
+     "url": "https://x.com/i/status/889797758860668928"
+    }
+   ],
+   "tags": [
+    "ファンイベント"
+   ],
+   "imp": 1,
+   "members": [
+    "綾瀬志希"
+   ],
+   "id": 144167
+  },
+  {
    "date": "2017-07-29",
    "type": "live",
    "title": "六本木アイドルフェスティバル2017に出演",
@@ -352,6 +373,172 @@
    "id": 403592
   },
   {
+   "date": "2017-08-01",
+   "type": "event",
+   "title": "ディア氷に青柳透が出勤",
+   "note": "秋葉原ディアステージ 昼",
+   "hl": false,
+   "src": [
+    {
+     "label": "X（メンバー・公式の投稿）",
+     "url": "https://x.com/i/status/892006315144302594"
+    },
+    {
+     "label": "X（メンバー・公式の投稿）",
+     "url": "https://x.com/i/status/892291427899551744"
+    }
+   ],
+   "tags": [
+    "ファンイベント"
+   ],
+   "imp": 1,
+   "members": [
+    "青柳透"
+   ],
+   "id": 429383
+  },
+  {
+   "date": "2017-08-06",
+   "type": "event",
+   "title": "「艶めく☆ディアステージ」に崎乃奏音が出演",
+   "note": "新橋演舞場。浴衣はCYNHN色。崎乃奏音の初めての接触・2チェキ",
+   "hl": false,
+   "src": [
+    {
+     "label": "X（メンバー・公式の投稿）",
+     "url": "https://x.com/i/status/880742716124147714"
+    },
+    {
+     "label": "X（メンバー・公式の投稿）",
+     "url": "https://x.com/i/status/893760906626125825"
+    },
+    {
+     "label": "X（メンバー・公式の投稿）",
+     "url": "https://x.com/i/status/894166861281017856"
+    }
+   ],
+   "tags": [
+    "ファンイベント"
+   ],
+   "imp": 1,
+   "members": [
+    "崎乃奏音"
+   ],
+   "id": 766283
+  },
+  {
+   "date": "2017-08-13",
+   "type": "event",
+   "title": "「艶めく☆ディアステージ」1部に桜坂真愛・青柳透・百瀬怜・綾瀬志希が出演",
+   "note": "新橋演舞場。CYNHNの和装は青色",
+   "hl": false,
+   "src": [
+    {
+     "label": "X（メンバー・公式の投稿）",
+     "url": "https://x.com/i/status/896574534593134592"
+    },
+    {
+     "label": "X（メンバー・公式の投稿）",
+     "url": "https://x.com/i/status/896741817281949696"
+    },
+    {
+     "label": "X（メンバー・公式の投稿）",
+     "url": "https://x.com/i/status/896742270971518976"
+    }
+   ],
+   "tags": [
+    "ファンイベント"
+   ],
+   "imp": 1,
+   "members": [
+    "桜坂真愛",
+    "青柳透",
+    "百瀬怜",
+    "綾瀬志希"
+   ],
+   "id": 276833
+  },
+  {
+   "date": "2017-08-18",
+   "type": "event",
+   "title": "ディア氷に崎乃奏音・青柳透が出勤",
+   "note": "秋葉原ディアステージ 昼",
+   "hl": false,
+   "src": [
+    {
+     "label": "X（メンバー・公式の投稿）",
+     "url": "https://x.com/i/status/898086995141906432"
+    },
+    {
+     "label": "X（メンバー・公式の投稿）",
+     "url": "https://x.com/i/status/898090386614308865"
+    },
+    {
+     "label": "X（メンバー・公式の投稿）",
+     "url": "https://x.com/i/status/898450032931741697"
+    }
+   ],
+   "tags": [
+    "ファンイベント"
+   ],
+   "imp": 1,
+   "members": [
+    "崎乃奏音",
+    "青柳透"
+   ],
+   "id": 647657
+  },
+  {
+   "date": "2017-08-20",
+   "type": "event",
+   "title": "「艶めく☆ディアステージ」1部に月雲ねるが出演",
+   "note": "新橋演舞場",
+   "hl": false,
+   "src": [
+    {
+     "label": "X（メンバー・公式の投稿）",
+     "url": "https://x.com/i/status/899111246724780033"
+    },
+    {
+     "label": "X（メンバー・公式の投稿）",
+     "url": "https://x.com/i/status/899248992193609728"
+    }
+   ],
+   "tags": [
+    "ファンイベント"
+   ],
+   "imp": 1,
+   "members": [
+    "月雲ねる"
+   ],
+   "id": 373116
+  },
+  {
+   "date": "2017-08-25",
+   "type": "event",
+   "title": "ディア氷に崎乃奏音が出勤",
+   "note": "秋葉原ディアステージ 昼",
+   "hl": false,
+   "src": [
+    {
+     "label": "X（メンバー・公式の投稿）",
+     "url": "https://x.com/i/status/900628023166226432"
+    },
+    {
+     "label": "X（メンバー・公式の投稿）",
+     "url": "https://x.com/i/status/900976991964241920"
+    }
+   ],
+   "tags": [
+    "ファンイベント"
+   ],
+   "imp": 1,
+   "members": [
+    "崎乃奏音"
+   ],
+   "id": 354777
+  },
+  {
    "date": "2017-08-31",
    "type": "live",
    "title": "「TSUTAYA O-EASTで、アモーレアモーレ！！」に出演",
@@ -372,6 +559,31 @@
    "imp": 3,
    "members": [],
    "id": 149041
+  },
+  {
+   "date": "2017-09-01",
+   "type": "event",
+   "title": "ディア氷に崎乃奏音らが出勤",
+   "note": "秋葉原ディアステージ 昼",
+   "hl": false,
+   "src": [
+    {
+     "label": "X（メンバー・公式の投稿）",
+     "url": "https://x.com/i/status/903518369327882240"
+    },
+    {
+     "label": "X（メンバー・公式の投稿）",
+     "url": "https://x.com/i/status/903518068705435649"
+    }
+   ],
+   "tags": [
+    "ファンイベント"
+   ],
+   "imp": 1,
+   "members": [
+    "崎乃奏音"
+   ],
+   "id": 232868
   },
   {
    "date": "2017-09-02",
@@ -1701,6 +1913,31 @@
    "id": 151638
   },
   {
+   "date": "2018-08-21",
+   "type": "event",
+   "title": "ディア氷2018に青柳透が出勤",
+   "note": "秋葉原ディアステージ 昼",
+   "hl": false,
+   "src": [
+    {
+     "label": "X（メンバー・公式の投稿）",
+     "url": "https://x.com/i/status/1031190441746620416"
+    },
+    {
+     "label": "X（メンバー・公式の投稿）",
+     "url": "https://x.com/i/status/1031786786425430016"
+    }
+   ],
+   "tags": [
+    "ファンイベント"
+   ],
+   "imp": 1,
+   "members": [
+    "青柳透"
+   ],
+   "id": 966151
+  },
+  {
    "date": "2018-08-26",
    "type": "live",
    "title": "@JAM EXPO 2018に出演",
@@ -1740,6 +1977,56 @@
    "id": 762601
   },
   {
+   "date": "2018-08-29",
+   "type": "event",
+   "title": "ディア氷2018に青柳透が出勤",
+   "note": "秋葉原ディアステージ 昼",
+   "hl": false,
+   "src": [
+    {
+     "label": "X（メンバー・公式の投稿）",
+     "url": "https://x.com/i/status/1032264121234776064"
+    },
+    {
+     "label": "X（メンバー・公式の投稿）",
+     "url": "https://x.com/i/status/1034688264811163648"
+    }
+   ],
+   "tags": [
+    "ファンイベント"
+   ],
+   "imp": 1,
+   "members": [
+    "青柳透"
+   ],
+   "id": 645083
+  },
+  {
+   "date": "2018-08-31",
+   "type": "event",
+   "title": "ディア氷2018に青柳透が出勤",
+   "note": "秋葉原ディアステージ 昼",
+   "hl": false,
+   "src": [
+    {
+     "label": "X（メンバー・公式の投稿）",
+     "url": "https://x.com/i/status/1035316097216442368"
+    },
+    {
+     "label": "X（メンバー・公式の投稿）",
+     "url": "https://x.com/i/status/1035414326880829440"
+    }
+   ],
+   "tags": [
+    "ファンイベント"
+   ],
+   "imp": 1,
+   "members": [
+    "青柳透"
+   ],
+   "id": 659744
+  },
+  {
    "date": "2018-09-01",
    "type": "event",
    "title": "メンバー個人ステージ",
@@ -1771,15 +2058,55 @@
    "id": 269210
   },
   {
+   "date": "2018-09-05",
+   "type": "event",
+   "title": "ディア氷2018に綾瀬志希・桜坂真愛・百瀬怜・青柳透が登場",
+   "note": "秋葉原ディアステージ 12:00〜14:30",
+   "hl": false,
+   "src": [
+    {
+     "label": "X（メンバー・公式の投稿）",
+     "url": "https://x.com/i/status/1037158373026803712"
+    },
+    {
+     "label": "X（メンバー・公式の投稿）",
+     "url": "https://x.com/i/status/1037234928818081792"
+    }
+   ],
+   "tags": [
+    "ファンイベント"
+   ],
+   "imp": 1,
+   "members": [
+    "綾瀬志希",
+    "桜坂真愛",
+    "百瀬怜",
+    "青柳透"
+   ],
+   "id": 110934
+  },
+  {
    "date": "2018-09-07",
    "type": "live",
-   "title": "秋葉原ディアステージ出演",
-   "note": "秋葉原ディアステージ",
+   "title": "ディア氷2018 最終日にCYNHN全員が登場、1曲披露",
+   "note": "秋葉原ディアステージ 12:00〜。ラストオーダーの14:30頃にステージで1曲",
    "hl": false,
    "src": [
     {
      "label": "X #CYNHN_setlist",
      "url": "https://x.com/i/status/1037944522141908993"
+    },
+    {
+     "label": "X（メンバー・公式の投稿）",
+     "url": "https://x.com/i/status/1037671757623119876"
+    },
+    {
+     "label": "X（メンバー・公式の投稿）",
+     "url": "https://x.com/i/status/1037883152465895424"
+    },
+    {
+     "label": "X（メンバー・公式の投稿）",
+     "url": "https://x.com/i/status/1037952762787520512"
     }
    ],
    "setlist": [
@@ -4681,6 +5008,14 @@
     {
      "label": "公式 CYNHN展〜夜明け前の青〜",
      "url": "https://cynhn.com/contents/290923"
+    },
+    {
+     "label": "X（メンバー・公式の投稿）",
+     "url": "https://x.com/i/status/1215876087441448961"
+    },
+    {
+     "label": "X（メンバー・公式の投稿）",
+     "url": "https://x.com/i/status/1225622734899752961"
     }
    ],
    "tags": [
@@ -4708,6 +5043,32 @@
    "imp": 2,
    "members": [],
    "id": 615079
+  },
+  {
+   "date": "2020-02-11",
+   "type": "event",
+   "title": "「CYNHN展」FC限定トークショー（月雲ねるほか）",
+   "note": "AWAJI Cafe & Gallery。2/15・2/16 にも開催",
+   "hl": false,
+   "src": [
+    {
+     "label": "X（メンバー・公式の投稿）",
+     "url": "https://x.com/i/status/1219868873685495808"
+    },
+    {
+     "label": "X（メンバー・公式の投稿）",
+     "url": "https://x.com/i/status/1228638395548631044"
+    }
+   ],
+   "tags": [
+    "ファンイベント",
+    "展示"
+   ],
+   "imp": 1,
+   "members": [
+    "月雲ねる"
+   ],
+   "id": 638742
   },
   {
    "date": "2020-02-13",
@@ -5712,6 +6073,14 @@
     {
      "label": "CYNHN 公式サイト",
      "url": "https://cynhn.com/contents/407544"
+    },
+    {
+     "label": "X（メンバー・公式の投稿）",
+     "url": "https://x.com/i/status/1365230525946810368"
+    },
+    {
+     "label": "X（メンバー・公式の投稿）",
+     "url": "https://x.com/i/status/1370215578212917248"
     }
    ],
    "tags": [
@@ -6039,6 +6408,14 @@
     {
      "label": "CYNHN 公式サイト",
      "url": "https://cynhn.com/contents/427650"
+    },
+    {
+     "label": "X（メンバー・公式の投稿）",
+     "url": "https://x.com/i/status/1393196961185030144"
+    },
+    {
+     "label": "X（メンバー・公式の投稿）",
+     "url": "https://x.com/i/status/1398272609452630018"
     }
    ],
    "tags": [
@@ -6332,6 +6709,14 @@
     {
      "label": "CYNHN 公式サイト",
      "url": "https://cynhn.com/contents/438459"
+    },
+    {
+     "label": "X（メンバー・公式の投稿）",
+     "url": "https://x.com/i/status/1410176682204536833"
+    },
+    {
+     "label": "X（メンバー・公式の投稿）",
+     "url": "https://x.com/i/status/1410860432479318016"
     }
    ],
    "tags": [
@@ -6756,6 +7141,14 @@
     {
      "label": "CYNHN 公式サイト",
      "url": "https://cynhn.com/contents/453159"
+    },
+    {
+     "label": "X（メンバー・公式の投稿）",
+     "url": "https://x.com/i/status/1433007485137399808"
+    },
+    {
+     "label": "X（メンバー・公式の投稿）",
+     "url": "https://x.com/i/status/1434716227671257090"
     }
    ],
    "tags": [
@@ -7036,6 +7429,28 @@
     "百瀬怜"
    ],
    "id": 720277
+  },
+  {
+   "date": "2021-12-02",
+   "type": "other",
+   "title": "写真家・川本史織の写真展『This is iDol. -episode3-』で月雲ねる・青柳透の写真を展示",
+   "note": "早稲田 Gallery&Barくらげ（〜12/5）。2018〜2019年の写真",
+   "hl": false,
+   "src": [
+    {
+     "label": "X（メンバー・公式の投稿）",
+     "url": "https://x.com/i/status/1466316211533217796"
+    }
+   ],
+   "tags": [
+    "展示"
+   ],
+   "imp": 1,
+   "members": [
+    "月雲ねる",
+    "青柳透"
+   ],
+   "id": 976983
   },
   {
    "date": "2021-12-19",
@@ -7813,6 +8228,14 @@
     {
      "label": "CYNHN 公式サイト",
      "url": "https://cynhn.com/contents/526014"
+    },
+    {
+     "label": "X（メンバー・公式の投稿）",
+     "url": "https://x.com/i/status/1528692213965676544"
+    },
+    {
+     "label": "X（メンバー・公式の投稿）",
+     "url": "https://x.com/i/status/1531976418292559873"
     }
    ],
    "tags": [
@@ -7855,6 +8278,14 @@
     {
      "label": "CYNHN 公式サイト",
      "url": "https://cynhn.com/contents/523281"
+    },
+    {
+     "label": "X（メンバー・公式の投稿）",
+     "url": "https://x.com/i/status/1525732719342272514"
+    },
+    {
+     "label": "X（メンバー・公式の投稿）",
+     "url": "https://x.com/i/status/1530556941952745473"
     }
    ],
    "tags": [
@@ -9062,6 +9493,14 @@
     {
      "label": "CYNHN 公式サイト",
      "url": "https://cynhn.com/contents/594883"
+    },
+    {
+     "label": "X（メンバー・公式の投稿）",
+     "url": "https://x.com/i/status/1590992728896086016"
+    },
+    {
+     "label": "X（メンバー・公式の投稿）",
+     "url": "https://x.com/i/status/1601923477623037953"
     }
    ],
    "tags": [
@@ -9290,6 +9729,10 @@
     {
      "label": "CYNHN 公式サイト",
      "url": "https://cynhn.com/contents/595971"
+    },
+    {
+     "label": "X（メンバー・公式の投稿）",
+     "url": "https://x.com/i/status/1592819772235948032"
     }
    ],
    "tags": [
@@ -9379,6 +9822,28 @@
    "imp": 1,
    "members": [],
    "id": 978458
+  },
+  {
+   "date": "2023-01-10",
+   "type": "other",
+   "title": "「新春！大絵馬展2023」に綾瀬志希・青柳透が参加",
+   "note": "Gallery&Barくらげ（〜1/15）。個人絵馬とメンバーサイン入り絵馬",
+   "hl": false,
+   "src": [
+    {
+     "label": "X（メンバー・公式の投稿）",
+     "url": "https://x.com/i/status/1612743675871641600"
+    }
+   ],
+   "tags": [
+    "展示"
+   ],
+   "imp": 1,
+   "members": [
+    "綾瀬志希",
+    "青柳透"
+   ],
+   "id": 233752
   },
   {
    "date": "2023-01-14",
@@ -9539,6 +10004,35 @@
    "id": 128287
   },
   {
+   "date": "2023-01-25",
+   "type": "other",
+   "title": "綾瀬志希 個展「あなたの健やかな殺意」",
+   "note": "Gallery&Barくらげ（〜1/31）。入場無料・作品購入可",
+   "hl": false,
+   "src": [
+    {
+     "label": "CYNHN 公式サイト",
+     "url": "https://cynhn.com/contents/610489"
+    },
+    {
+     "label": "X（メンバー・公式の投稿）",
+     "url": "https://x.com/i/status/1613128599627878403"
+    },
+    {
+     "label": "X（メンバー・公式の投稿）",
+     "url": "https://x.com/i/status/1617884927491547136"
+    }
+   ],
+   "tags": [
+    "展示"
+   ],
+   "imp": 1,
+   "members": [
+    "綾瀬志希"
+   ],
+   "id": 157874
+  },
+  {
    "date": "2023-01-27",
    "type": "event",
    "title": "CYNHN 11thシングル「楽の上塗り」リリースイベント",
@@ -9608,6 +10102,31 @@
     "氷菓",
     "楽の上塗り"
    ]
+  },
+  {
+   "date": "2023-01-31",
+   "type": "event",
+   "title": "綾瀬志希 個展「あなたの健やかな殺意」記念 FC限定Barイベント",
+   "note": "Gallery&Barくらげ 地下。2部制",
+   "hl": false,
+   "src": [
+    {
+     "label": "X（メンバー・公式の投稿）",
+     "url": "https://x.com/i/status/1618232225459306497"
+    },
+    {
+     "label": "X（メンバー・公式の投稿）",
+     "url": "https://x.com/i/status/1620285748137033728"
+    }
+   ],
+   "tags": [
+    "ファンイベント"
+   ],
+   "imp": 1,
+   "members": [
+    "綾瀬志希"
+   ],
+   "id": 135983
   },
   {
    "date": "2023-02",
@@ -10549,6 +11068,31 @@
    ]
   },
   {
+   "date": "2023-05-05",
+   "type": "event",
+   "title": "綾瀬志希 個展「あなたの健やかな殺意」作品お渡し会",
+   "note": "作品の購入者に本人が手渡し",
+   "hl": false,
+   "src": [
+    {
+     "label": "X（メンバー・公式の投稿）",
+     "url": "https://x.com/i/status/1652970850801549315"
+    },
+    {
+     "label": "X（メンバー・公式の投稿）",
+     "url": "https://x.com/i/status/1654101526472982529"
+    }
+   ],
+   "tags": [
+    "ファンイベント"
+   ],
+   "imp": 1,
+   "members": [
+    "綾瀬志希"
+   ],
+   "id": 461372
+  },
+  {
    "date": "2023-05-06",
    "type": "live",
    "title": "歌舞伎町 UP GATE↑↑(カブキチョウ アップゲート)",
@@ -10660,6 +11204,14 @@
     {
      "label": "CYNHN 公式サイト",
      "url": "https://cynhn.com/contents/639608"
+    },
+    {
+     "label": "X（メンバー・公式の投稿）",
+     "url": "https://x.com/i/status/1656630244474863616"
+    },
+    {
+     "label": "X（メンバー・公式の投稿）",
+     "url": "https://x.com/i/status/1662642978886930432"
     }
    ],
    "tags": [
@@ -10732,6 +11284,14 @@
     {
      "label": "CYNHN 公式サイト",
      "url": "https://cynhn.com/contents/635813"
+    },
+    {
+     "label": "X（メンバー・公式の投稿）",
+     "url": "https://x.com/i/status/1650832025467727873"
+    },
+    {
+     "label": "X（メンバー・公式の投稿）",
+     "url": "https://x.com/i/status/1662425728137428993"
     }
    ],
    "tags": [
@@ -12367,6 +12927,14 @@
     {
      "label": "CYNHN 公式サイト",
      "url": "https://cynhn.com/contents/672759"
+    },
+    {
+     "label": "X（メンバー・公式の投稿）",
+     "url": "https://x.com/i/status/1701898523577405767"
+    },
+    {
+     "label": "X（メンバー・公式の投稿）",
+     "url": "https://x.com/i/status/1712840654861348900"
     }
    ],
    "tags": [
@@ -13098,6 +13666,10 @@
     {
      "label": "CYNHN 公式サイト",
      "url": "https://cynhn.com/contents/705793"
+    },
+    {
+     "label": "X（メンバー・公式の投稿）",
+     "url": "https://x.com/i/status/1746079635509805394"
     }
    ],
    "tags": [
@@ -13247,6 +13819,10 @@
     {
      "label": "CYNHN 公式サイト",
      "url": "https://cynhn.com/contents/707483"
+    },
+    {
+     "label": "X（メンバー・公式の投稿）",
+     "url": "https://x.com/i/status/1753659585620308285"
     }
    ],
    "tags": [
@@ -13382,6 +13958,33 @@
    "imp": 1,
    "members": [],
    "id": 534760
+  },
+  {
+   "date": "2024-02-16",
+   "type": "event",
+   "title": "LIVE DVD「アウフヘーベン」発売記念イベント＠WEGO札幌店",
+   "note": "WEGOコーデで特典会。大雪による飛行機遅延で開始が20:30過ぎに",
+   "hl": false,
+   "src": [
+    {
+     "label": "X（メンバー・公式の投稿）",
+     "url": "https://x.com/i/status/1752980113162109277"
+    },
+    {
+     "label": "X（メンバー・公式の投稿）",
+     "url": "https://x.com/i/status/1758439938629235198"
+    },
+    {
+     "label": "X（メンバー・公式の投稿）",
+     "url": "https://x.com/i/status/1758502472149324224"
+    }
+   ],
+   "tags": [
+    "特典会"
+   ],
+   "imp": 1,
+   "members": [],
+   "id": 932620
   },
   {
    "date": "2024-02-17",
@@ -14123,6 +14726,10 @@
     {
      "label": "CYNHN 公式サイト",
      "url": "https://cynhn.com/contents/745923"
+    },
+    {
+     "label": "X（メンバー・公式の投稿）",
+     "url": "https://x.com/i/status/1793567548006699213"
     }
    ],
    "tags": [
@@ -14145,6 +14752,10 @@
     {
      "label": "CYNHN 公式サイト",
      "url": "https://cynhn.com/contents/745936"
+    },
+    {
+     "label": "X（メンバー・公式の投稿）",
+     "url": "https://x.com/i/status/1787089872102076832"
     }
    ],
    "tags": [
@@ -14202,6 +14813,32 @@
     "青柳透"
    ],
    "id": 409408
+  },
+  {
+   "date": "2024-05-26",
+   "type": "event",
+   "title": "青柳透在廊イベント「喫茶とおるてん2024」",
+   "note": "AWAJI Gallery 昼。生誕展示「まじない」最終日",
+   "hl": false,
+   "src": [
+    {
+     "label": "X（メンバー・公式の投稿）",
+     "url": "https://x.com/i/status/1786591581442920735"
+    },
+    {
+     "label": "X（メンバー・公式の投稿）",
+     "url": "https://x.com/i/status/1794601860160012799"
+    }
+   ],
+   "tags": [
+    "生誕",
+    "ファンイベント"
+   ],
+   "imp": 1,
+   "members": [
+    "青柳透"
+   ],
+   "id": 521323
   },
   {
    "date": "2024-05-28",
@@ -14636,6 +15273,10 @@
     {
      "label": "CYNHN 公式サイト",
      "url": "https://cynhn.com/contents/760978"
+    },
+    {
+     "label": "X（メンバー・公式の投稿）",
+     "url": "https://x.com/i/status/1805571650261573781"
     }
    ],
    "tags": [
@@ -15355,6 +15996,14 @@
     {
      "label": "CYNHN 公式サイト",
      "url": "https://cynhn.com/contents/848423"
+    },
+    {
+     "label": "X（メンバー・公式の投稿）",
+     "url": "https://x.com/i/status/1831649267246870938"
+    },
+    {
+     "label": "X（メンバー・公式の投稿）",
+     "url": "https://x.com/i/status/1836268914986168327"
     }
    ],
    "tags": [
@@ -15488,6 +16137,31 @@
     "広瀬みのり"
    ],
    "id": 123645
+  },
+  {
+   "date": "2024-09-25",
+   "type": "media",
+   "title": "ライブドローイング配信「とおるの書 vol.1」",
+   "note": "Gallery&Barくらげから配信。リクエストに応えて青柳透が書を一筆",
+   "hl": false,
+   "src": [
+    {
+     "label": "X（メンバー・公式の投稿）",
+     "url": "https://x.com/i/status/1836601104559181873"
+    },
+    {
+     "label": "X（メンバー・公式の投稿）",
+     "url": "https://x.com/i/status/1838881935268982831"
+    }
+   ],
+   "tags": [
+    "配信"
+   ],
+   "imp": 1,
+   "members": [
+    "青柳透"
+   ],
+   "id": 901973
   },
   {
    "date": "2024-09-29",
@@ -16063,6 +16737,14 @@
     {
      "label": "公式 CYNHN展 2024",
      "url": "https://cynhn.com/contents/863121"
+    },
+    {
+     "label": "X（メンバー・公式の投稿）",
+     "url": "https://x.com/i/status/1851972429486395773"
+    },
+    {
+     "label": "X（メンバー・公式の投稿）",
+     "url": "https://x.com/i/status/1863183797153591641"
     }
    ],
    "tags": [
@@ -16130,6 +16812,32 @@
    "id": 123621
   },
   {
+   "date": "2024-11-26",
+   "type": "event",
+   "title": "LIVE DVD「Sunflower」発売記念リリースイベント（月雲ねる・広瀬みのり）＠AWAJI gallery",
+   "note": "「CYNHN展 2024」会期中",
+   "hl": false,
+   "src": [
+    {
+     "label": "X（メンバー・公式の投稿）",
+     "url": "https://x.com/i/status/1860865992445870222"
+    },
+    {
+     "label": "X（メンバー・公式の投稿）",
+     "url": "https://x.com/i/status/1861351748881051733"
+    }
+   ],
+   "tags": [
+    "特典会"
+   ],
+   "imp": 1,
+   "members": [
+    "月雲ねる",
+    "広瀬みのり"
+   ],
+   "id": 146348
+  },
+  {
    "date": "2024-11-27",
    "type": "release",
    "title": "「Tokyo stuck」配信",
@@ -16160,6 +16868,25 @@
    "id": 831510
   },
   {
+   "date": "2024-11-27",
+   "type": "media",
+   "title": "お土産オンライン特典会〜はじめてのマカオ旅編〜（AWAJI galleryから公開配信）",
+   "note": "19:30〜",
+   "hl": false,
+   "src": [
+    {
+     "label": "X（メンバー・公式の投稿）",
+     "url": "https://x.com/i/status/1859197499829096627"
+    }
+   ],
+   "tags": [
+    "配信"
+   ],
+   "imp": 1,
+   "members": [],
+   "id": 738109
+  },
+  {
    "date": "2024-11-28",
    "type": "event",
    "title": "LIVE DVD「CYNHN LIVE TOUR 2024 -Sunflower-@恵比寿LIQUIDROOM」発売記念リリースイベント",
@@ -16177,6 +16904,32 @@
    "imp": 1,
    "members": [],
    "id": 492650
+  },
+  {
+   "date": "2024-11-28",
+   "type": "event",
+   "title": "LIVE DVD「Sunflower」発売記念リリースイベント（綾瀬志希・青柳透）＠AWAJI gallery",
+   "note": "「CYNHN展 2024」会期中。AWAJI galleryは閉店のため、ここでのCYNHN展はこれが最後",
+   "hl": false,
+   "src": [
+    {
+     "label": "X（メンバー・公式の投稿）",
+     "url": "https://x.com/i/status/1861741768791691676"
+    },
+    {
+     "label": "X（メンバー・公式の投稿）",
+     "url": "https://x.com/i/status/1863183797153591641"
+    }
+   ],
+   "tags": [
+    "特典会"
+   ],
+   "imp": 1,
+   "members": [
+    "綾瀬志希",
+    "青柳透"
+   ],
+   "id": 310029
   },
   {
    "date": "2024-12-09",
@@ -18959,6 +19712,14 @@
     {
      "label": "CYNHN 公式サイト",
      "url": "https://cynhn.com/contents/959917"
+    },
+    {
+     "label": "X（メンバー・公式の投稿）",
+     "url": "https://x.com/i/status/1941074555147297271"
+    },
+    {
+     "label": "X（メンバー・公式の投稿）",
+     "url": "https://x.com/i/status/1949349033299906607"
     }
    ],
    "tags": [
@@ -20744,6 +21505,10 @@
     {
      "label": "CYNHN 公式サイト",
      "url": "https://cynhn.com/contents/1020848"
+    },
+    {
+     "label": "X（メンバー・公式の投稿）",
+     "url": "https://x.com/i/status/1998331793317974096"
     }
    ],
    "tags": [
@@ -22583,6 +23348,10 @@
     {
      "label": "CYNHN 公式サイト",
      "url": "https://cynhn.com/contents/1066166"
+    },
+    {
+     "label": "X（メンバー・公式の投稿）",
+     "url": "https://x.com/i/status/2044977901599113258"
     }
    ],
    "tags": [
@@ -22605,6 +23374,10 @@
     {
      "label": "CYNHN 公式サイト",
      "url": "https://cynhn.com/contents/1074966"
+    },
+    {
+     "label": "X（メンバー・公式の投稿）",
+     "url": "https://x.com/i/status/2057061273972637784"
     }
    ],
    "tags": [
