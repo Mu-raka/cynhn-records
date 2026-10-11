@@ -21,6 +21,7 @@ for a in M["add"]:
     e = {"date": a["date"], "type": a["type"], "title": a["title"], "note": a.get("note", ""), "hl": False,
          "src": ([{"label": "CYNHN 公式サイト", "url": a["url"]}] if a.get("url") else []) + tw_src(a["tw"]),
          "tags": a["tags"], "imp": 1, "members": a["members"], "id": n}
+    if a.get("setlist"): e["setlist"] = a["setlist"]
     pos = max([i + 1 for i, x in enumerate(ev) if x['date'][:10] <= a['date']] or [0])
     ev.insert(pos, e); added += 1
 for u in M["update"]:
