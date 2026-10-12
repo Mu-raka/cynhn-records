@@ -29,7 +29,7 @@
     { key: "label", long: "テイチク（レーベル）", short: "テイチク", re: /teichiku\.co\.jp/ },
     { key: "wiki", long: "Wikipedia", short: "WP", re: /wikipedia\.org/ },
     { key: "natalie", long: "音楽ナタリー", short: "ナタリー", re: /natalie\.mu/ },
-    { key: "blog", long: "note・ブログ", short: "ブログ", re: /note\.com|ameblo\.jp|hatenablog|hateblo\.jp|hatenadiary|jugem\.jp|livedoor\.blog|blog\.jp|fc2\.com|seesaa|medium\.com/ },
+    { key: "blog", long: "note・ブログ", short: "ブログ", re: /(^|\/\/|\.)note\.com|ameblo\.jp|hatenablog|hateblo\.jp|hatenadiary|jugem\.jp|livedoor\.blog|blog\.jp|fc2\.com|seesaa|medium\.com/ },
     { key: "x", long: "Xの投稿", short: "X", re: /(^|\/\/)(x|twitter)\.com/ },
     { key: "press", long: "Webメディアの記事", short: "記事", re: /realsound|ototoy|barks|pia\.jp|impress|atpress|mikan|dot-yell|skiyaki|popnroll|billboard|kyodo|esrp2|skream|rooftop1976|galpo|joysound|storywriter|mikiki|cdjournal|usen\.com|getnews/ },
     { key: "livefans", long: "LiveFans", short: "LiveFans", re: /livefans/ },
@@ -313,6 +313,24 @@
     }
     var newHash = state.open ? (state.year || e.date.slice(0, 4)) + "/" + id : (state.all ? "all" : state.year);
     history.replaceState(null, "", newHash ? "#" + newHash : location.pathname + location.search);
+    scrollRowToTop(li);
+  }
+
+  // タップした出来事の先頭が、固定ヘッダーと絞り込み欄のすぐ下に来るようにスクロールする
+  function stickyOffset() {
+    var off = 0;
+    document.querySelectorAll("header.site, .controls").forEach(function (el) {
+      var cs = getComputedStyle(el);
+      if (cs.position === "sticky" || cs.position === "fixed") off = Math.max(off, (parseFloat(cs.top) || 0) + el.offsetHeight);
+    });
+    return Math.max(0, off) + 8;
+  }
+  function scrollRowToTop(li) {
+    var top = li.getBoundingClientRect().top;
+    var off = stickyOffset();
+    if (Math.abs(top - off) < 4) return;
+    var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    window.scrollTo({ top: window.scrollY + top - off, behavior: reduce ? "auto" : "smooth" });
   }
 
   // ---- この年表について
