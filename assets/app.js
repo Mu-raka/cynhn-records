@@ -2,7 +2,7 @@
   "use strict";
   var cfg = window.SITE_CONFIG || {};
   var $ = function (id) { return document.getElementById(id); };
-  var DATA = null, BY_ID = {}, TOP5 = {};
+  var DATA = null, BY_ID = {}, TOP5 = {}, MEMBERS = {};
   var state = { year: "", all: false, q: "", tag: "", src: "", imp: "", member: "", open: null };
   var TODAY = (function () {
     var d = new Date(), p = function (n) { return String(n).padStart(2, "0"); };
@@ -199,6 +199,7 @@
       var q = "CYNHN since:" + e.date + " until:" + nextDay(e.date);
       html += "<h4>当時のXの反応</h4><a class=\"chip ext\" href=\"https://x.com/search?q=" + encodeURIComponent(q) + '&f=live" target="_blank" rel="noopener">CYNHNを含む投稿（' + esc(slash(e.date)) + "）</a>";
     }
+    if (MEMBERS[e.date] && MEMBERS[e.date].length) html += memberBlockHTML(e.date);
     if (TOP5[e.date] && TOP5[e.date].length) html += '<div class="fan-top" data-date="' + esc(e.date) + '">' + topBlockHTML(e.date) + "</div>";
     var r = reportUrl(e);
     if (r) html += '<div class="report">内容に誤りがありますか？<a class="chip ext" href="' + esc(r) + '" target="_blank" rel="noopener">誤りを報告する</a></div>';
@@ -208,16 +209,22 @@
   // ---- 関連ツイート（ファンリストの投稿をいいね順に。5件ずつ、最大30件）
   // Xの埋め込み用ページ（platform.twitter.com/embed/Tweet.html）をiframeで直接はめ込む。widgets.js は使わない
   var STEP = 5, MAX = 30, SHOWN = {};
-  function tweetItem(t, i) {
-    var link = '<a class="tw-head ext" href="https://x.com/i/status/' + esc(t.id) + '" target="_blank" rel="noopener"><b>' + (i + 1) + '位</b><span class="likes">♥ ' + Number(t.likes).toLocaleString() + '</span><span class="open">Xで開く</span></a>';
+  function tweetItem(t, i, member) {
+    var link = '<a class="tw-head ext" href="https://x.com/i/status/' + esc(t.id) + '" target="_blank" rel="noopener">' + (member ? '<b>メンバー</b>' : '<b>' + (i + 1) + '位</b>') + '<span class="likes">♥ ' + Number(t.likes).toLocaleString() + '</span><span class="open">Xで開く</span></a>';
     var fr = cfg.embedTweets !== false
-      ? '<iframe class="tw-frame" title="Xの投稿 ' + (i + 1) + '位" loading="lazy" scrolling="no" frameborder="0" allowtransparency="true" ' +
+      ? '<iframe class="tw-frame" title="Xの投稿 ' + (member ? "メンバー " : "") + (i + 1) + (member ? "" : "位") + '" loading="lazy" scrolling="no" frameborder="0" allowtransparency="true" ' +
         'src="https://platform.twitter.com/embed/Tweet.html?dnt=true&hideThread=true&lang=ja&theme=' + (isDark() ? "dark" : "light") + '&id=' + esc(t.id) + '"></iframe>' : "";
     return '<li class="tw">' + link + fr + "</li>";
   }
   function isDark() {
     var t = document.documentElement.getAttribute("data-theme");
     return t ? t === "dark" : !!(window.matchMedia && matchMedia("(prefers-color-scheme: dark)").matches);
+  }
+  function memberBlockHTML(date) {
+    var all = MEMBERS[date] || [];
+    if (!all.length) return "";
+    return '<div class="member-tw"><h4>CYNHNメンバーのツイート <small>サンクス・感想など（' + all.length + '件）</small></h4>' +
+      '<ol class="tweets">' + all.map(function (t, i) { return tweetItem(t, i, true); }).join("") + "</ol></div>";
   }
   function topBlockHTML(date) {
     var all = (TOP5[date] || []).slice(0, MAX), n = Math.min(SHOWN[date] || STEP, all.length);
@@ -369,6 +376,10 @@
     $("nav-ov").addEventListener("click", function (ev) { ev.preventDefault(); $("ov").scrollIntoView(); });
     window.addEventListener("hashchange", function () { applyHash(); });
     window.addEventListener("popstate", function () { applyHash(false); });
+
+    fetch(cfg.membersUrl || "data/x_members.json", { cache: "no-cache" })
+      .then(function (r) { return r.ok ? r.json() : {}; })
+      .then(function (d) { MEMBERS = (d && d.dates) || {}; }, function () {});
 
     fetch(cfg.top5Url || "data/x_top5.json", { cache: "no-cache" })
       .then(function (r) { return r.ok ? r.json() : {}; })

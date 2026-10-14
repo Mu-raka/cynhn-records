@@ -189,7 +189,7 @@ footer.site { border-top: 1px solid var(--mist); padding: 20px 16px 32px; text-a
   .month { position: static; }
 }
 
-.fan-top h4 small { font-weight: 400; color: var(--ink-2); font-size: 0.85em; margin-left: 4px; }
+.fan-top h4 small, .member-tw h4 small { font-weight: 400; color: var(--ink-2); font-size: 0.85em; margin-left: 4px; }
 .tweets { list-style: none; margin: 0; padding: 0; max-width: 550px; display: grid; gap: 14px; font-variant-numeric: tabular-nums; }
 .tw { border-top: 1px solid var(--mist); padding-top: 10px; min-width: 0; }
 .tw:first-child { border-top: 0; padding-top: 0; }
@@ -201,3 +201,4 @@ footer.site { border-top: 1px solid var(--mist); padding: 20px 16px 32px; text-a
 .top-btns { display: flex; flex-wrap: wrap; gap: 0 8px; }
 .top-btns .btn { margin-top: 10px; }
 .fan-top .note { font-size: 13px; color: var(--ink-2); margin: 8px 0 0; }
+.member-tw { margin-bottom: 18px; }
