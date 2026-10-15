@@ -116,6 +116,15 @@ h1, h2 { font-family: var(--serif); font-weight: 800; letter-spacing: .02em; tex
 .table { list-style: none; margin: 0; padding: 0; border: 1px solid var(--mist); border-radius: 10px; overflow: hidden; background: var(--card); }
 .month { background: var(--paper-2); padding: 6px 14px; font-size: .8rem; font-weight: 700; color: var(--ink-2); border-top: 1px solid var(--mist); }
 .month:first-child { border-top: 0; }
+.month.is-fold { padding: 0; }
+.month-btn { all: unset; box-sizing: border-box; display: flex; align-items: center; gap: 10px; width: 100%; padding: 10px 14px; cursor: pointer; font-size: .88rem; font-weight: 700; color: var(--ink); }
+.month-btn:hover { background: var(--mist); }
+.month-btn:focus-visible { outline: 2px solid var(--blue-2); outline-offset: -2px; }
+.month-btn .m-count { font-weight: 400; font-size: .8rem; color: var(--ink-2); }
+.month-btn .m-arrow { margin-left: auto; width: 8px; height: 8px; border-right: 2px solid var(--ink-2); border-bottom: 2px solid var(--ink-2); transform: rotate(45deg); transition: transform .15s; }
+.month.is-open .m-arrow { transform: rotate(-135deg); }
+.month-tools { display: flex; gap: 8px; justify-content: flex-end; margin: 0 0 8px; }
+.month-tools .btn { font-size: .8rem; padding: 4px 10px; }
 .row { border-top: 1px solid var(--mist); border-left: 4px solid transparent; }
 .row.imp3 { border-left-color: var(--blue); }
 .row.imp2 { border-left-color: var(--former); }

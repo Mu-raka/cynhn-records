@@ -2,7 +2,7 @@
   "use strict";
   var cfg = window.SITE_CONFIG || {};
   var $ = function (id) { return document.getElementById(id); };
-  var DATA = null, BY_ID = {}, TOP5 = {}, MEMBERS = {};
+  var DATA = null, BY_ID = {}, TOP5 = {}, MEMBERS = {}, OPEN_M = {};
   var state = { year: "", all: false, q: "", tag: "", src: "", imp: "", member: "", open: null };
   var TODAY = (function () {
     var d = new Date(), p = function (n) { return String(n).padStart(2, "0"); };
@@ -265,17 +265,26 @@
       $("reset").addEventListener("click", function () { state.q = state.tag = state.src = state.imp = state.member = ""; syncControls(); renderList(); });
       return;
     }
-    var html = '<ol class="table">', lastM = "";
-    list.forEach(function (e) {
-      var m = e.date.slice(0, 7);
-      if (m !== lastM) {
-        lastM = m;
-        var label = m.length === 7 ? (state.year ? (+m.slice(5)) + "月" : m.slice(0, 4) + "年" + (+m.slice(5)) + "月") : m.slice(0, 4) + "年（月不明）";
-        html += '<li class="month">' + label + "</li>";
-      }
-      html += rowHTML(e);
+    // 月ごとに折りたたむ（年・全件表示のとき）。検索や絞り込み中は全部開いて表示
+    var fold = !(state.q || state.tag || state.src || state.imp || state.member);
+    var groups = [], byM = {};
+    list.forEach(function (e) { var m = e.date.slice(0, 7); if (!byM[m]) { byM[m] = []; groups.push(m); } byM[m].push(e); });
+    if (state.open && BY_ID[state.open]) OPEN_M[BY_ID[state.open].date.slice(0, 7)] = true;
+    var html = "";
+    if (fold && groups.length > 1) html += '<div class="month-tools"><button type="button" class="btn" id="m-all-open">すべての月を開く</button><button type="button" class="btn" id="m-all-close">すべて閉じる</button></div>';
+    html += '<ol class="table">';
+    groups.forEach(function (m) {
+      var label = m.length === 7 ? (state.year ? (+m.slice(5)) + "月" : m.slice(0, 4) + "年" + (+m.slice(5)) + "月") : m.slice(0, 4) + "年（月不明）";
+      var open = !fold || OPEN_M[m];
+      if (fold) html += '<li class="month is-fold' + (open ? " is-open" : "") + '"><button type="button" class="month-btn" data-m="' + m + '" aria-expanded="' + open + '"><span>' + label + '</span><span class="m-count">' + byM[m].length + '件</span><span class="m-arrow" aria-hidden="true"></span></button></li>';
+      else html += '<li class="month">' + label + "</li>";
+      if (open) byM[m].forEach(function (e) { html += rowHTML(e); });
     });
     $("rows").innerHTML = html + "</ol>";
+    if ($("m-all-open")) {
+      $("m-all-open").addEventListener("click", function () { groups.forEach(function (m) { OPEN_M[m] = true; }); renderList(); });
+      $("m-all-close").addEventListener("click", function () { OPEN_M = {}; state.open = null; renderList(); });
+    }
     activateTops($("rows"));
   }
 
@@ -290,7 +299,7 @@
     var m = h.match(/^(\d{4})(?:\/(\d+))?$/);
     state.open = null;
     if (h === "all") { state.all = true; state.year = ""; }
-    else if (m) { state.all = false; state.year = m[1]; if (m[2]) state.open = +m[2]; }
+    else if (m) { if (state.year !== m[1]) OPEN_M = {}; state.all = false; state.year = m[1]; if (m[2]) state.open = +m[2]; }
     else { state.all = false; state.year = ""; }
     syncControls(); renderList();
     if (scroll === false) return;
@@ -307,6 +316,12 @@
 
   function onRowClick(ev) {
     var mb = ev.target.closest(".more-top"); if (mb) { moreTop(mb); return; }
+    var mo = ev.target.closest(".month-btn");
+    if (mo) {
+      var mk = mo.dataset.m; OPEN_M[mk] = !OPEN_M[mk];
+      if (!OPEN_M[mk] && state.open && BY_ID[state.open] && BY_ID[state.open].date.slice(0, 7) === mk) state.open = null;
+      var y = window.scrollY; renderList(); window.scrollTo(0, y); return;
+    }
     var btn = ev.target.closest(".row-main"); if (!btn) return;
     var li = btn.parentElement, id = +li.dataset.id, e = BY_ID[id];
     var wasOpen = state.open === id;
