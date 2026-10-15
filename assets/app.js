@@ -9,6 +9,20 @@
     return d.getFullYear() + "-" + p(d.getMonth() + 1) + "-" + p(d.getDate());
   })();
 
+  // ---- 「行った！」記録（このブラウザだけに保存）
+  var WENT = {};
+  try { WENT = JSON.parse(localStorage.getItem("cyn_went") || "{}") || {}; } catch (e) { WENT = {}; }
+  function saveWent() { try { localStorage.setItem("cyn_went", JSON.stringify(WENT)); } catch (e) {} }
+  function canGo(e) { return /^\d{4}-\d{2}-\d{2}$/.test(e.date) && !isUpcoming(e.date) && (["live", "tour", "event"].indexOf(e.type) >= 0 || (e.setlist && e.setlist.length) || /公演|ライブ|LIVE|生誕/.test(e.title)); }
+  function ytId(u) { var m = String(u).match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|live\/|embed\/))([\w-]{11})/); return m ? m[1] : ""; }
+  function ytOf(e) { var s = (e.src || []).filter(function (x) { return ytId(x.url); })[0]; return s ? ytId(s.url) : ""; }
+  function evUrl(e) { return location.origin + location.pathname + "#" + e.date.slice(0, 4) + "/" + e.id; }
+  function shareUrl(e) {
+    var d = e.date.split("-"), when = d[0] + "年" + (d[1] ? (+d[1]) + "月" : "") + (d[2] ? (+d[2]) + "日" : "");
+    var text = "【青の記録】" + when + "の CYNHN\n" + e.title + "\n";
+    return "https://x.com/intent/post?text=" + encodeURIComponent(text) + "&url=" + encodeURIComponent(evUrl(e)) + "&hashtags=CYNHN";
+  }
+
   function esc(s) {
     return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) {
       return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
@@ -125,6 +139,7 @@
     if (e.status === "canceled") pills += '<span class="pill st">中止</span>';
     else if (e.status === "postponed") pills += '<span class="pill st">延期</span>';
     else if (isUpcoming(e.date)) pills += '<span class="pill soon">予定</span>';
+    if (WENT[e.id]) pills += '<span class="pill went" title="行った">✓ 行った</span>';
     (e.tags || []).slice(0, 2).forEach(function (t) { pills += '<span class="pill tag">' + esc(t) + "</span>"; });
     kindsOf(e).slice(0, 3).forEach(function (k) { pills += '<span class="pill src">' + esc(k.short) + "</span>"; });
     var sub = [e.note, e.setlist && e.setlist.length ? "セットリストあり" : ""].filter(Boolean).join("　");
@@ -193,6 +208,12 @@
       return '<li><span class="k">' + esc(g.k.long) + '</span><span class="links">' + links + "</span></li>";
     }).join("");
     var html = '<div class="r-detail">';
+    html += '<div class="r-actions">';
+    if (canGo(e)) html += '<button type="button" class="act went-btn' + (WENT[e.id] ? " is-on" : "") + '" data-id="' + e.id + '" aria-pressed="' + !!WENT[e.id] + '">' + (WENT[e.id] ? "✓ 行った" : "＋ 行った！") + "</button>";
+    html += '<a class="act share ext" href="' + esc(shareUrl(e)) + '" target="_blank" rel="noopener">Xでシェア</a>';
+    html += '<button type="button" class="act copy-link" data-url="' + esc(evUrl(e)) + '">リンクをコピー</button></div>';
+    var yt = ytOf(e);
+    if (yt) html += '<a class="yt-thumb ext" href="https://www.youtube.com/watch?v=' + yt + '" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/' + yt + '/mqdefault.jpg" alt="YouTubeの動画サムネイル" loading="lazy" width="320" height="180"><span>YouTubeで見る</span></a>';
     html += '<h4>参考URL</h4><ul class="srcs">' + srcs + "</ul>";
     if (e.setlist && e.setlist.length) html += "<h4>セットリスト</h4>" + setlistHTML(e.setlist);
     if (/^\d{4}-\d{2}-\d{2}$/.test(e.date) && e.date >= "2017-06-01" && !isUpcoming(e.date)) {
@@ -250,6 +271,7 @@
     var base = state.year ? DATA.events.filter(function (e) { return e.date.slice(0, 4) === state.year; }).length : DATA.events.length;
     $("list-title").textContent = state.year ? state.year + "年の出来事" : "出来事一覧";
     $("list-help").hidden = !state.year;
+    if (state.year) $("list-help").innerHTML = '日付順。月を押すとその月の出来事が開き、行を押すと出典が開きます。<a href="#recap/' + state.year + '">' + state.year + '年の振り返りを見る ›</a>';
     document.querySelectorAll(".ov-col").forEach(function (c) { c.classList.toggle("is-current", c.dataset.year === state.year); });
 
     if (!isActive()) {
@@ -295,6 +317,13 @@
   }
   function applyHash(scroll) {
     var h = decodeURIComponent(location.hash.slice(1));
+    if (/^(songs|song\/.+|members|member\/.+|recap(\/\d{4})?|mylog)$/.test(h)) {
+      document.body.classList.add("is-page");
+      if (window.CYN_ROUTE) window.CYN_ROUTE(h);
+      if (scroll !== false) window.scrollTo(0, 0);
+      return;
+    }
+    document.body.classList.remove("is-page");
     if (h === "about" || h === "list" || h === "ov") return;
     var m = h.match(/^(\d{4})(?:\/(\d+))?$/);
     state.open = null;
@@ -314,8 +343,22 @@
     refreshTop(box);
   }
 
+  function toggleWent(btn) {
+    var id = +btn.dataset.id; if (WENT[id]) delete WENT[id]; else WENT[id] = 1; saveWent();
+    var on = !!WENT[id]; btn.classList.toggle("is-on", on); btn.setAttribute("aria-pressed", on); btn.textContent = on ? "✓ 行った" : "＋ 行った！";
+    var row = btn.closest(".row"), tags = row && row.querySelector(".r-tags");
+    if (tags) { var p = tags.querySelector(".went"); if (on && !p) tags.insertAdjacentHTML("afterbegin", '<span class="pill went" title="行った">✓ 行った</span>'); if (!on && p) p.remove(); }
+    document.dispatchEvent(new CustomEvent("cyn:went"));
+  }
+  function copyLink(btn) {
+    var u = btn.dataset.url, done = function () { btn.textContent = "コピーしました"; setTimeout(function () { btn.textContent = "リンクをコピー"; }, 1500); };
+    if (navigator.clipboard) navigator.clipboard.writeText(u).then(done, function () { prompt("このリンクをコピーしてください", u); });
+    else prompt("このリンクをコピーしてください", u);
+  }
   function onRowClick(ev) {
     var mb = ev.target.closest(".more-top"); if (mb) { moreTop(mb); return; }
+    var wb = ev.target.closest(".went-btn"); if (wb) { toggleWent(wb); return; }
+    var cb = ev.target.closest(".copy-link"); if (cb) { copyLink(cb); return; }
     var mo = ev.target.closest(".month-btn");
     if (mo) {
       var mk = mo.dataset.m; OPEN_M[mk] = !OPEN_M[mk];
@@ -388,7 +431,7 @@
     $("ov-track").addEventListener("click", function (ev) { var c = ev.target.closest(".ov-col"); if (c) go(c.dataset.year); });
     $("rows").addEventListener("click", onRowClick);
     $("home-link").addEventListener("click", function (ev) { ev.preventDefault(); state.q = state.tag = state.src = state.imp = state.member = ""; go(""); window.scrollTo(0, 0); });
-    $("nav-ov").addEventListener("click", function (ev) { ev.preventDefault(); $("ov").scrollIntoView(); });
+    $("nav-ov").addEventListener("click", function (ev) { ev.preventDefault(); if (document.body.classList.contains("is-page")) { go(""); } $("ov").scrollIntoView(); });
     window.addEventListener("hashchange", function () { applyHash(); });
     window.addEventListener("popstate", function () { applyHash(false); });
 
@@ -406,6 +449,9 @@
         d.events.sort(function (a, b) { return a.date < b.date ? -1 : a.date > b.date ? 1 : 0; });
         DATA = d; d.events.forEach(function (e) { BY_ID[e.id] = e; });
         renderOverview(); fillSelects(); renderAbout();
+        window.CYN = { DATA: DATA, BY_ID: BY_ID, TODAY: TODAY, esc: esc, md: md, slash: slash, go: go, isUpcoming: isUpcoming, setlistHTML: setlistHTML, tweetItem: tweetItem, ytOf: ytOf, canGo: canGo,
+          went: function () { return WENT; }, top5: function () { return TOP5; }, members: function () { return MEMBERS; }, evUrl: evUrl, toggleWent: toggleWent };
+        document.dispatchEvent(new CustomEvent("cyn:ready"));
         applyHash(!!location.hash);
         var cur = document.querySelector(".ov-col.is-current");
         if (cur) $("ov-scroll").scrollLeft = cur.offsetLeft - 40;

@@ -14,7 +14,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@500;700;800&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/style.css?v=20261015b">
+<link rel="stylesheet" href="assets/style.css?v=20261016a">
 </head>
 <body>
 <a class="skip" href="#list">出来事一覧へ移動</a>
@@ -23,6 +23,9 @@
   <a class="brand" href="#" id="home-link">青の記録</a>
   <nav>
     <a href="#" id="nav-ov">年表</a>
+    <a href="#songs">曲</a>
+    <a href="#members">メンバー</a>
+    <a href="#mylog">参戦記録</a>
     <a id="request-link" href="#" target="_blank" rel="noopener">出来事の追加依頼</a>
     <a href="#about" id="nav-about">この年表について</a>
   </nav>
@@ -35,6 +38,24 @@
       <ol class="ov-track" id="ov-track"></ol>
     </div>
   </section>
+
+  <section class="home" id="home" aria-label="今日は何の日・新着">
+    <div class="home-grid">
+      <article class="today card" id="today" aria-labelledby="today-title"></article>
+      <div class="home-side">
+        <button type="button" class="card memory" id="memory-btn"><span class="memory-k">思い出をひとつ</span><span class="memory-s">ランダムに過去の出来事を開きます</span></button>
+        <nav class="card quick" aria-label="特集ページ">
+          <a href="#songs"><b>曲</b><span>披露回数・初披露・最後に歌われた日</span></a>
+          <a href="#members"><b>メンバー</b><span>在籍期間と個人の出来事</span></a>
+          <a href="#recap" id="recap-link"><b>年ごとの振り返り</b><span>その年のライブ数・よく歌われた曲</span></a>
+          <a href="#mylog"><b>わたしの参戦記録</b><span>「行った！」を押した出来事のまとめ</span></a>
+        </nav>
+      </div>
+    </div>
+    <div class="recent card" id="recent" aria-labelledby="recent-title"></div>
+  </section>
+
+  <section class="page" id="page" aria-live="polite"></section>
 
   <section class="list" id="list" aria-labelledby="list-title">
     <h2 id="list-title">出来事一覧</h2>
@@ -90,6 +111,7 @@
 </script>
 
 <script src="assets/config.js"></script>
-<script src="assets/app.js?v=20261015b"></script>
+<script src="assets/app.js?v=20261016a"></script>
+<script src="assets/extra.js?v=20261016a"></script>
 </body>
 </html>
