@@ -2,7 +2,7 @@
    ・ファンの投稿：ブラウザの localStorage "cyn_fanlist"（ファンのアカウント名の配列。リポジトリには置かない）にある人だけ
    ・メンバーの投稿：サンクス・感想など関連ツイートだけ（日付ごとに上位3件）
    使い方：window.__WK_DATES = ["2026-10-04", ...]; のあとにこのファイルの中身を実行。
-   進み具合は window.__wk.status、結果は localStorage "cyn_weekly_fan" / "cyn_weekly_mem"（1行1日付「件数 日付 チェックサム id:いいね,...」）
+   進み具合は window.__wk.status（エラーで諦めた検索の数は window.__wk.errors）、結果は localStorage "cyn_weekly_fan" / "cyn_weekly_mem"（1行1日付「件数 日付 チェックサム id:いいね,...」）
    出力にはツイートIDといいね数だけを入れる（本文は出さない） */
 (function () {
   if (window.__wk && window.__wk.active) return "already";
@@ -26,10 +26,22 @@
     n = parseFloat(m[1].replace(/,/g, "")); if (m[2] === "K") n *= 1e3; if (m[2] === "M") n *= 1e6; return Math.round(n);
   }
   var body = function () { return (document.querySelector("main") || document.body).innerText; };
+  // Xが「問題が発生しました」（回数制限）を出したら10分待って、最大3回までやり直す
   async function search(q, live) {
+    for (var t = 0; t < 4; t++) {
+      var r = await search1(q, live);
+      if (!r.err) return r.out;
+      R.log.push("X error (" + (t + 1) + ") " + new Date().toLocaleTimeString());
+      if (t < 3) { R.status += " / waiting 10min"; await S(600000); }
+    }
+    R.errors = (R.errors || 0) + 1;
+    return {};
+  }
+  async function search1(q, live) {
     history.pushState({}, "", "/search?q=" + encodeURIComponent(q) + "&src=typed_query" + (live ? "&f=live" : ""));
     window.dispatchEvent(new PopStateEvent("popstate", { state: {} }));
     for (var k = 0; k < 24; k++) { await S(500); if (document.querySelector('article[data-testid="tweet"] time') || (k > 8 && /検索結果はありません|No results|問題が発生/.test(body()))) break; }
+    if (/問題が発生しました|Something went wrong/.test(body()) && !document.querySelector('article[data-testid="tweet"]')) return { err: true };
     var out = {}, idle = 0;
     for (var r = 0; r < 30 && idle < 3; r++) {
       var n = Object.keys(out).length;
@@ -42,7 +54,7 @@
       window.scrollBy(0, 2500); await S(1500);
       idle = Object.keys(out).length === n ? idle + 1 : 0;
     }
-    return out;
+    return { out: out };
   }
   function line(d, items) {
     var s = items.reduce(function (a, x) { return (a + BigInt(x[0]) + BigInt(x[1])) % P; }, 0n);
