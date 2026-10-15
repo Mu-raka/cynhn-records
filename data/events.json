@@ -10131,6 +10131,36 @@
    "id": 752992
   },
   {
+   "date": "2021-09-12",
+   "type": "event",
+   "title": "綾瀬志希 YouTube Live「ちきとふぁんずのAMONG US！」",
+   "note": "綾瀬志希のYouTubeチャンネルで17:00頃から配信。FC限定のファン参加型ゲーム配信（Among Us）。アーカイブあり",
+   "hl": false,
+   "src": [
+    {
+     "label": "YouTube「ちきとふぁんずのAMONG US！」",
+     "url": "https://www.youtube.com/watch?v=4s_W0dRKX_8"
+    },
+    {
+     "label": "CYNHN 公式サイト",
+     "url": "https://cynhn.com/contents/454903"
+    },
+    {
+     "label": "X（メンバー・公式の投稿）",
+     "url": "https://x.com/i/status/1436947760083832832"
+    }
+   ],
+   "tags": [
+    "ファンイベント",
+    "配信"
+   ],
+   "imp": 1,
+   "members": [
+    "綾瀬志希"
+   ],
+   "id": 367331
+  },
+  {
    "date": "2021-09-15",
    "type": "live",
    "title": "月雲ねる生誕祭",
