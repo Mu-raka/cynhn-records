@@ -319,3 +319,9 @@ body.is-page #ov, body.is-page #home, body.is-page #list, body.is-page #about { 
   .pg-title { font-size: 1.5rem; }
   .ev-d { min-width: 0; }
 }
+.log-tools { display: flex; flex-wrap: wrap; gap: 8px; }
+.file-btn { cursor: pointer; }
+.log-paste { display: grid; gap: 8px; margin-top: 10px; max-width: 520px; }
+.log-paste textarea { font: inherit; font-size: .85rem; padding: 8px 10px; border: 1px solid var(--mist); border-radius: 8px; background: var(--card); color: var(--ink); width: 100%; }
+.log-paste .btn { justify-self: start; }
+.log-msg { font-size: .85rem; color: var(--blue); min-height: 1.4em; }

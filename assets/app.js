@@ -450,7 +450,8 @@
         DATA = d; d.events.forEach(function (e) { BY_ID[e.id] = e; });
         renderOverview(); fillSelects(); renderAbout();
         window.CYN = { DATA: DATA, BY_ID: BY_ID, TODAY: TODAY, esc: esc, md: md, slash: slash, go: go, isUpcoming: isUpcoming, setlistHTML: setlistHTML, tweetItem: tweetItem, ytOf: ytOf, canGo: canGo,
-          went: function () { return WENT; }, top5: function () { return TOP5; }, members: function () { return MEMBERS; }, evUrl: evUrl, toggleWent: toggleWent };
+          went: function () { return WENT; }, top5: function () { return TOP5; }, members: function () { return MEMBERS; }, evUrl: evUrl, toggleWent: toggleWent,
+          importWent: function (ids) { var n = 0; ids.forEach(function (id) { id = +id; if (BY_ID[id] && !WENT[id]) { WENT[id] = 1; n++; } }); saveWent(); return n; } };
         document.dispatchEvent(new CustomEvent("cyn:ready"));
         applyHash(!!location.hash);
         var cur = document.querySelector(".ov-col.is-current");

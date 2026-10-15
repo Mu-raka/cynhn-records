@@ -192,11 +192,59 @@
     page(y + "年の振り返り", body);
   }
 
+  // ---- 参戦記録の書き出し・読み込み（機種変更やブラウザの引っ越し用）
+  function logTools(n) {
+    return '<h2 class="pg-h">記録の書き出し・読み込み</h2>' +
+      '<p class="lead">スマホを変えるときや、別のブラウザでも見たいときに使います。読み込むと、今ある記録に足されます（消えることはありません）。</p>' +
+      '<div class="log-tools">' +
+      (n ? '<button type="button" class="btn" id="log-export">ファイルに書き出す</button><button type="button" class="btn" id="log-copy">コードをコピー</button>' : "") +
+      '<label class="btn file-btn">ファイルから読み込む<input type="file" id="log-file" accept=".json,application/json,text/plain" hidden></label>' +
+      '<button type="button" class="btn" id="log-paste-open">コードを貼り付けて読み込む</button></div>' +
+      '<div class="log-paste" id="log-paste" hidden><textarea id="log-code" rows="4" placeholder="書き出したコードをここに貼り付け"></textarea><button type="button" class="btn" id="log-paste-go">読み込む</button></div>' +
+      '<p class="log-msg" id="log-msg" role="status"></p>';
+  }
+  function logPayload() {
+    var ids = Object.keys(C.went()).map(Number).sort(function (a, b) { return a - b; });
+    return JSON.stringify({ site: "cynhn-records", v: 1, exported: C.TODAY, went: ids });
+  }
+  function readCode(text) {
+    var t = String(text || "").trim(), ids = null;
+    try { var d = JSON.parse(t); ids = Array.isArray(d) ? d : (d && d.went); } catch (e) { ids = (t.match(/\d{5,7}/g) || []); }
+    if (!ids || !ids.length) return -1;
+    return C.importWent(ids);
+  }
+  function bindLogTools() {
+    var msg = function (t) { $("log-msg").textContent = t; };
+    var after = function (n) {
+      if (n < 0) { msg("読み込めませんでした。書き出したファイルかコードか確認してください。"); return; }
+      renderMylog(); $("log-msg").textContent = n ? n + "件の記録を読み込みました。" : "新しく足される記録はありませんでした（すでに同じ記録があります）。";
+      document.dispatchEvent(new CustomEvent("cyn:went-sync"));
+    };
+    if ($("log-export")) $("log-export").addEventListener("click", function () {
+      var blob = new Blob([logPayload()], { type: "application/json" }), a = document.createElement("a");
+      a.href = URL.createObjectURL(blob); a.download = "cynhn-sansen-" + C.TODAY + ".json";
+      document.body.appendChild(a); a.click(); setTimeout(function () { URL.revokeObjectURL(a.href); a.remove(); }, 1000);
+      msg("ファイルを保存しました。新しいスマホやブラウザで「ファイルから読み込む」を押して選んでください。");
+    });
+    if ($("log-copy")) $("log-copy").addEventListener("click", function () {
+      var code = logPayload();
+      var ok = function () { msg("コードをコピーしました。メモアプリなどに貼って保存し、新しいほうで「コードを貼り付けて読み込む」に貼ってください。"); };
+      if (navigator.clipboard) navigator.clipboard.writeText(code).then(ok, function () { prompt("このコードをコピーしてください", code); });
+      else prompt("このコードをコピーしてください", code);
+    });
+    $("log-file").addEventListener("change", function () {
+      var f = this.files && this.files[0]; if (!f) return;
+      var r = new FileReader(); r.onload = function () { after(readCode(r.result)); }; r.readAsText(f);
+    });
+    $("log-paste-open").addEventListener("click", function () { $("log-paste").hidden = false; $("log-code").focus(); });
+    $("log-paste-go").addEventListener("click", function () { after(readCode($("log-code").value)); });
+  }
+
   // ---- わたしの参戦記録
   function renderMylog() {
     var W = C.went(), evs = C.DATA.events.filter(function (e) { return W[e.id]; });
     var body = '<p class="lead">出来事を開いて「＋ 行った！」を押すと、ここに記録されます。記録はこのブラウザの中だけに保存され、ほかの人には見えません（ブラウザのデータを消すと消えます）。</p>';
-    if (!evs.length) { page("わたしの参戦記録", body + '<p class="muted">まだ記録がありません。<a href="#all">出来事一覧</a>から、行ったライブやイベントを開いて「＋ 行った！」を押してみてください。</p>'); return; }
+    if (!evs.length) { page("わたしの参戦記録", body + '<p class="muted">まだ記録がありません。<a href="#all">出来事一覧</a>から、行ったライブやイベントを開いて「＋ 行った！」を押してみてください。</p>' + logTools(0)); bindLogTools(); return; }
     var years = {}; evs.forEach(function (e) { var y = e.date.slice(0, 4); years[y] = (years[y] || 0) + 1; });
     var songC = {};
     evs.forEach(function (e) { var seen = {}; (e.setlist || []).forEach(function (r) { if (r.charAt(0) === "▼") return; var n = songName(r); if (n && !seen[n]) { seen[n] = 1; songC[n] = (songC[n] || 0) + 1; } }); });
@@ -213,7 +261,8 @@
     body += '<h2 class="pg-h">参戦した出来事</h2><ul class="evs">' + evs.slice().reverse().map(function (e) { return evItem(e, e.setlist && e.setlist.length ? '<span class="pill tag">セトリ</span>' : ""); }).join("") + "</ul>";
     var text = "CYNHNの参戦記録：" + evs.length + "回（" + evs[0].date.slice(0, 4) + "〜）\n生で聴いた曲 " + topSongs.length + "曲" + (topSongs[0] ? "、いちばん聴いたのは「" + topSongs[0] + "」" : "") + "\n";
     body += '<p class="note"><a class="chip ext" target="_blank" rel="noopener" href="https://x.com/intent/post?text=' + encodeURIComponent(text) + "&url=" + encodeURIComponent(location.origin + location.pathname) + '&hashtags=CYNHN,青の記録">参戦記録をXでシェア</a></p>';
-    page("わたしの参戦記録", body);
+    page("わたしの参戦記録", body + logTools(evs.length));
+    bindLogTools();
   }
 
   function route(h) {
