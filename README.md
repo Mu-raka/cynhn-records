@@ -192,3 +192,14 @@ python3 tools/enrich.py
 
 ファンが個人で作っている非公式サイトです。CYNHN・ディアステージ・テイチクエンタテインメントとは関係ありません。
 写真・ジャケット画像などは権利の都合で載せていません。
+
+## 週1回のメンテナンス（自動）
+
+毎週、公式サイトの新しい告知の取り込みと、直近の開催日のツイート集めをします。
+
+1. 公式サイトの LIVE/EVENT 一覧（1ページ目）を `日付|カテゴリ|タイトル|URL` の形で書き写し、
+   `python3 tools/prepend_official.py 書き写したファイル` → `python3 tools/import_official.py` → `python3 tools/enrich.py`
+   （enrich.py は、すでに付いている id・タグ・メンバーを変えません。新しい出来事には id と `added`（追加日）が付きます）
+2. X のタブで `tools/x_weekly.js` を実行して、直近2週間の開催日のツイートを集める
+   （ファンのアカウント一覧はブラウザの localStorage `cyn_fanlist` にだけ置き、リポジトリには入れません）
+3. 集めた結果を `python3 tools/merge_x_weekly.py fan ファイル` / `python3 tools/merge_x_weekly.py mem ファイル` で足す

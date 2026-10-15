@@ -8,11 +8,14 @@
 
 手で imp や tags を書いた出来事は上書きしません（"imp_manual": true / "tags_manual": true を付けておく）。
 データを取り込んだり編集したりしたあとに実行します:  python3 tools/enrich.py
+すでに id・members が付いている出来事はそのまま（共有リンクを変えないため）。新しい出来事には id と added（追加日）を付けます。
 """
 import json, re, zlib, pathlib
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 EVENTS = ROOT / "data" / "events.json"
+import sys
+ALL = "--all" in sys.argv
 
 ONEMAN = re.compile(r"ワンマン|ONE ?MAN|Anniversary (LIVE|EVENT)|Link to Blue|Pray for Blue|Ordinary Blue|Re Blue|Blue Spring|Our Blue|"
                     r"Blue Cresc|Thank you Blue|Blue Light|BLUE RAINBOW|アガパンサス|Octablue|November First|Blue Symphony|"
@@ -61,21 +64,27 @@ def imp_for(e, tags):
 def main():
     data = json.loads(EVENTS.read_text(encoding="utf-8"))
     names = [m["name"] for m in data["meta"].get("members", [])]
-    used = set()
+    # すでに付いている id（共有リンク）と members は変えない。新しく足した出来事だけに付ける
+    used = {e["id"] for e in data["events"] if "id" in e}
     for e in sorted(data["events"], key=lambda x: (x["date"], x["title"], x.get("note", ""))):
         if e["type"] == "tour" and TOKUTEN.search(e["title"]):
             e["type"] = "event"   # ツアー名を含むリリースイベントはイベント扱い
-        if not e.get("tags_manual"):
+        # tags・imp も、すでに付いていれば変えない（全部付け直したいときは --all）
+        if not e.get("tags_manual") and (ALL or "tags" not in e):
             e["tags"] = tags_for(e)
-        if not e.get("imp_manual"):
+        if not e.get("imp_manual") and (ALL or "imp" not in e):
             e["imp"] = imp_for(e, e["tags"])
         hay = e["title"] + " " + e.get("note", "") + " " + " ".join(e.get("setlist", []))
-        e["members"] = [n for n in names if n in hay]
+        if "members" not in e:
+            e["members"] = [n for n in names if n in hay]
+        if "id" in e:
+            continue
         n = zlib.crc32((e["date"] + "|" + e["title"] + "|" + e.get("note", "")).encode()) % 900000 + 100000
         while n in used:
             n += 1
         used.add(n)
         e["id"] = n
+        e.setdefault("added", __import__("datetime").date.today().isoformat())
     data["meta"]["tags"] = ["ワンマン", "ライブ", "フェス", "ツアー", "生誕", "リリース", "特典会", "ファンイベント",
                             "配信", "展示", "メディア", "メンバー", "その他"]
     EVENTS.write_text(json.dumps(data, ensure_ascii=False, indent=1), encoding="utf-8")
