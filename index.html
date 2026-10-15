@@ -14,7 +14,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@500;700;800&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/style.css?v=20261014c">
+<link rel="stylesheet" href="assets/style.css?v=20261015a">
 </head>
 <body>
 <a class="skip" href="#list">出来事一覧へ移動</a>
@@ -72,8 +72,22 @@
 </main>
 
 <footer class="site">
+  <p class="counter" id="counter" hidden>累計 <span id="counter-n">-</span> アクセス</p>
   <p>非公式ファンサイト。掲載内容の権利は各権利者に帰属します。</p>
 </footer>
+<script>
+/* アクセスカウンター（Abacus：登録不要の無料カウンター）。同じ人がリロードしても数えないよう、1回の閲覧（タブを閉じるまで）につき1回だけ加算 */
+(function () {
+  var base = "https://abacus.jasoncameron.dev/", key = "mu-raka-cynhn-records/visits", counted = false;
+  try { counted = sessionStorage.getItem("cyn_counted") === "1"; } catch (e) {}
+  fetch(base + (counted ? "get/" : "hit/") + key).then(function (r) { return r.ok ? r.json() : null; }).then(function (d) {
+    if (!d || typeof d.value !== "number") return;
+    try { sessionStorage.setItem("cyn_counted", "1"); } catch (e) {}
+    document.getElementById("counter-n").textContent = d.value.toLocaleString();
+    document.getElementById("counter").hidden = false;
+  }).catch(function () {});
+})();
+</script>
 
 <script src="assets/config.js"></script>
 <script src="assets/app.js?v=20261014c"></script>
