@@ -7677,6 +7677,10 @@
     {
      "label": "イベンターノート",
      "url": "https://www.eventernote.com/events/244283"
+    },
+    {
+     "label": "CYNHN 公式サイト",
+     "url": "https://cynhn.com/contents/290882"
     }
    ],
    "tags": [
@@ -7727,6 +7731,10 @@
     {
      "label": "イベンターノート",
      "url": "https://www.eventernote.com/events/244287"
+    },
+    {
+     "label": "CYNHN 公式サイト",
+     "url": "https://cynhn.com/contents/290889"
     }
    ],
    "tags": [
@@ -8076,6 +8084,10 @@
     {
      "label": "イベンターノート",
      "url": "https://www.eventernote.com/events/246010"
+    },
+    {
+     "label": "CYNHN 公式サイト",
+     "url": "https://cynhn.com/contents/294641"
     }
    ],
    "tags": [
@@ -8103,6 +8115,10 @@
     {
      "label": "イベンターノート",
      "url": "https://www.eventernote.com/events/248456"
+    },
+    {
+     "label": "CYNHN 公式サイト",
+     "url": "https://cynhn.com/contents/296475"
     }
    ],
    "tags": [
@@ -13559,6 +13575,10 @@
     {
      "label": "イベンターノート",
      "url": "https://www.eventernote.com/events/333043"
+    },
+    {
+     "label": "CYNHN 公式サイト",
+     "url": "https://cynhn.com/contents/610752"
     }
    ],
    "tags": [
@@ -19485,6 +19505,10 @@
     {
      "label": "CYNHN 公式サイト",
      "url": "https://cynhn.com/contents/765856"
+    },
+    {
+     "label": "CYNHN 公式サイト",
+     "url": "https://cynhn.com/contents/765855"
     }
    ],
    "tags": [
@@ -21438,6 +21462,10 @@
     {
      "label": "イベンターノート",
      "url": "https://www.eventernote.com/events/397667"
+    },
+    {
+     "label": "CYNHN 公式サイト",
+     "url": "https://cynhn.com/contents/871150"
     }
    ],
    "tags": [
@@ -22918,6 +22946,10 @@
     {
      "label": "イベンターノート",
      "url": "https://www.eventernote.com/events/425467"
+    },
+    {
+     "label": "CYNHN 公式サイト",
+     "url": "https://cynhn.com/contents/919036"
     }
    ],
    "tags": [
@@ -30926,6 +30958,26 @@
    "imp": 1,
    "members": [],
    "id": 768971
+  },
+  {
+   "date": "2026-11-01",
+   "type": "event",
+   "title": "楽天ブックスプレゼンツ「CYNHN Zepp DiverCity への道＆『Opia』発売記念副音声視聴会」",
+   "note": "",
+   "hl": false,
+   "src": [
+    {
+     "label": "CYNHN 公式サイト",
+     "url": "https://cynhn.com/contents/1119528"
+    }
+   ],
+   "tags": [
+    "特典会"
+   ],
+   "imp": 1,
+   "members": [],
+   "id": 546830,
+   "added": "2026-10-18"
   },
   {
    "date": "2026-11-16",
