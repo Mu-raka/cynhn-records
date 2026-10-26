@@ -30914,6 +30914,26 @@
    "id": 361005
   },
   {
+   "date": "2026-10-30",
+   "type": "event",
+   "title": "『CYNHN Zepp DiverCityワンマンライブ2026』＠Zepp Diver City(TOKYO)公演 チケット販売企画",
+   "note": "ヤマモトショウテン2F",
+   "hl": false,
+   "src": [
+    {
+     "label": "CYNHN 公式サイト",
+     "url": "https://cynhn.com/contents/1120879"
+    }
+   ],
+   "tags": [
+    "ワンマン"
+   ],
+   "imp": 2,
+   "members": [],
+   "id": 931126,
+   "added": "2026-10-26"
+  },
+  {
    "date": "2026-10-31",
    "type": "live",
    "title": "#DSPMLIVE in SHIZUOKA",
@@ -31109,6 +31129,26 @@
    "imp": 1,
    "members": [],
    "id": 682112
+  },
+  {
+   "date": "2027-03-13",
+   "type": "live",
+   "title": "IDORISE!! FESTIVAL 2027",
+   "note": "渋谷複数会場同時 〜03/14",
+   "hl": false,
+   "src": [
+    {
+     "label": "CYNHN 公式サイト",
+     "url": "https://cynhn.com/contents/1121527"
+    }
+   ],
+   "tags": [
+    "フェス"
+   ],
+   "imp": 1,
+   "members": [],
+   "id": 119666,
+   "added": "2026-10-26"
   }
  ]
 }
