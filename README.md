@@ -195,7 +195,7 @@ python3 tools/enrich.py
 
 ## 週1回のメンテナンス（自動）
 
-毎週、公式サイトの新しい告知の取り込みと、直近の開催日のツイート集めをします。
+毎週、公式サイトの新しい告知の取り込みと、直近の開催日のツイート集め、新しく加わったファンの過去ツイートの確認をします。
 
 1. 公式サイトの LIVE/EVENT 一覧（1ページ目）を `日付|カテゴリ|タイトル|URL` の形で書き写し、
    `python3 tools/prepend_official.py 書き写したファイル` → `python3 tools/import_official.py` → `python3 tools/enrich.py`
@@ -203,3 +203,10 @@ python3 tools/enrich.py
 2. X のタブで `tools/x_weekly.js` を実行して、直近2週間の開催日のツイートを集める
    （ファンのアカウント一覧はブラウザの localStorage `cyn_fanlist` にだけ置き、リポジトリには入れません）
 3. 集めた結果を `python3 tools/merge_x_weekly.py fan ファイル` / `python3 tools/merge_x_weekly.py mem ファイル` で足す
+4. ファン一覧に新しく加わった人の過去のツイートも確認する：2. が終わってから X のタブで `tools/x_newfans.js` を実行し、
+   結果（localStorage `cyn_newfan_out`）を `python3 tools/merge_x_weekly.py fan ファイル --event-days` で足す
+   - 確認済みのアカウントはブラウザの localStorage `cyn_fanlist_checked` に記録し、`cyn_fanlist` にあって
+     ここに無い人だけを `from:アカウント (CYNHN OR …)` で検索し、`until:` をずらしながら古い方へさかのぼります
+   - Xの回数制限がきついので、1回に開く検索は15ページまで。途中の人は `cyn_newfan_progress` に続きの日付を残し、翌週そこから続けます
+   - `--event-days` を付けると、年表に出来事がある日の投稿だけが入ります（各日いいね上位30件の枠に入ったものだけ残ります）
+   - `cyn_fanlist_checked` が無いとき（初回）は、そのときの一覧を確認済みとして記録するだけで検索はしません
