@@ -31141,6 +31141,26 @@
    "id": 441920
   },
   {
+   "date": "2026-12-07",
+   "type": "live",
+   "title": "イベントライブ出演予定",
+   "note": "",
+   "hl": false,
+   "src": [
+    {
+     "label": "CYNHN 公式サイト",
+     "url": "https://cynhn.com/contents/1122506"
+    }
+   ],
+   "tags": [
+    "ライブ"
+   ],
+   "imp": 1,
+   "members": [],
+   "id": 430816,
+   "added": "2026-11-01"
+  },
+  {
    "date": "2026-12-08",
    "type": "live",
    "title": "「まとフェス2026」に出演",
@@ -31177,6 +31197,86 @@
    "imp": 1,
    "members": [],
    "id": 682112
+  },
+  {
+   "date": "2026-12-23",
+   "type": "live",
+   "title": "CYNHN Acoustic live 〜 Blue Hour X 〜",
+   "note": "浅草花劇場",
+   "hl": false,
+   "src": [
+    {
+     "label": "CYNHN 公式サイト",
+     "url": "https://cynhn.com/contents/1122516"
+    }
+   ],
+   "tags": [
+    "ワンマン"
+   ],
+   "imp": 2,
+   "members": [],
+   "id": 324731,
+   "added": "2026-11-01"
+  },
+  {
+   "date": "2026-12-26",
+   "type": "live",
+   "title": "イベントライブ出演予定",
+   "note": "",
+   "hl": false,
+   "src": [
+    {
+     "label": "CYNHN 公式サイト",
+     "url": "https://cynhn.com/contents/1122507"
+    }
+   ],
+   "tags": [
+    "ライブ"
+   ],
+   "imp": 1,
+   "members": [],
+   "id": 427850,
+   "added": "2026-11-01"
+  },
+  {
+   "date": "2026-12-27",
+   "type": "live",
+   "title": "イベントライブ出演予定",
+   "note": "",
+   "hl": false,
+   "src": [
+    {
+     "label": "CYNHN 公式サイト",
+     "url": "https://cynhn.com/contents/1122508"
+    }
+   ],
+   "tags": [
+    "ライブ"
+   ],
+   "imp": 1,
+   "members": [],
+   "id": 174463,
+   "added": "2026-11-01"
+  },
+  {
+   "date": "2026-12-29",
+   "type": "live",
+   "title": "イベントライブ出演予定",
+   "note": "",
+   "hl": false,
+   "src": [
+    {
+     "label": "CYNHN 公式サイト",
+     "url": "https://cynhn.com/contents/1122509"
+    }
+   ],
+   "tags": [
+    "ライブ"
+   ],
+   "imp": 1,
+   "members": [],
+   "id": 578093,
+   "added": "2026-11-01"
   },
   {
    "date": "2027-03-13",
