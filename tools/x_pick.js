@@ -7,10 +7,11 @@
      （出来事の翌日の投稿は、前の日の感想として出来事の日に入れる）
    ・Xの検索は回数制限がきついので、1回の実行で開く検索ページは window.__PK_BUDGET 回まで（既定15回）。
      途中までのときは "cyn_pick_progress"（{アカウント: {since, until}}）に続きを残し、window.__PK_RESUME = true で続きから
-   ・回数制限（「問題が発生しました」）が出たら10分待って1回だけやり直し、だめならそこで止める（window.__pk.stopped）
+   ・回数制限（「問題が発生しました」）が出たら10分待って1回だけやり直し、だめならそこで止める（window.__pk.stopped）。
+     window.__PK_RETRIES を2以上にすると、その回数まで15分ずつ待ってやり直す
    使い方：
      週1：window.__PK_SINCE = "14日前の日付"; のあとにこのファイルの中身を実行
-     過去分をまとめて：window.__PK_SINCE = "2016-12-01"; window.__PK_BUDGET = 100; を実行してから中身を実行。
+     過去分をまとめて：window.__PK_SINCE = "2016-12-01"; window.__PK_BUDGET = 300; window.__PK_RETRIES = 30; を実行してから中身を実行。
        止まったら window.__PK_RESUME = true; を付けてもう一度（集めた分は "cyn_pick_found" にためてある）
    進み具合は window.__pk.status / window.__pk.log、結果は localStorage "cyn_pick_out"
    （x_weekly.js と同じ「件数 日付 チェックサム id:いいね,...」）
@@ -43,15 +44,18 @@
     m = s.match(/([\d,.]+)\s*([KM])?\s*likes?/i); if (!m) return 0;
     n = parseFloat(m[1].replace(/,/g, "")); if (m[2] === "K") n *= 1e3; if (m[2] === "M") n *= 1e6; return Math.round(n);
   }
+  // 回数制限のときに待ってやり直す回数（既定1回・10分待ち）。過去分をまとめて集めるときは window.__PK_RETRIES = 30 などにすると、
+  // 15分ずつ待ちながら止まらずに続ける
+  var RETRIES = window.__PK_RETRIES || 1, WAIT = RETRIES > 1 ? 900000 : 600000;
   async function open1(q) {
-    for (var t = 0; t < 2; t++) {
+    for (var t = 0; t <= RETRIES; t++) {
       budget--;
       history.pushState({}, "", "/search?q=" + encodeURIComponent(q) + "&src=typed_query&f=live");
       window.dispatchEvent(new PopStateEvent("popstate", { state: {} }));
       for (var k = 0; k < 24; k++) { await S(500); if (document.querySelector('article[data-testid="tweet"] time') || (k > 8 && /検索結果はありません|No results|問題が発生/.test(body()))) break; }
       if (!(/問題が発生しました|Something went wrong/.test(body()) && !document.querySelector('article[data-testid="tweet"]'))) return true;
       R.log.push("X error (" + (t + 1) + ") " + new Date().toLocaleTimeString());
-      if (t === 0) { R.status += " / waiting 10min"; await S(600000); }
+      if (t < RETRIES) { R.status = R.status.replace(/ \/ waiting.*$/, "") + " / waiting " + (WAIT / 60000) + "min (" + (t + 1) + ")"; await S(WAIT); }
     }
     return false;
   }
