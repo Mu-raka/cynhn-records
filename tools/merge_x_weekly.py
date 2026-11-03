@@ -6,6 +6,10 @@
   python3 tools/merge_x_weekly.py mem  集めたファイル.txt   # data/x_members.json（メンバーのツイート）に足す
   python3 tools/merge_x_weekly.py fan  集めたファイル.txt --event-days
       # 年表に出来事がある日（複数日の出来事はその期間）の行だけを足す（tools/x_newfans.js の結果用）
+  python3 tools/merge_x_weekly.py fan  集めたファイル.txt --event-days --pick
+      # 感想ツイートのピックアップ（tools/x_pick.js の結果用）。足したツイートに "pick": true を付け、
+      # いいねが少なくても30件の枠から落とさない（枠からは pick の付いていないものを、いいねの少ない順に外す）
+      # 出来事の無い日の行で、前の日に出来事があるときは、前の日の感想として前の日に入れる
 
 ファイルは1行1日付「件数 日付 チェックサム id:いいね,...」。チェックサム（Σ(id+いいね) mod 1000000007）が
 合わない行は取り込まない。同じIDは二重に入れず、いいね数は新しい値で上書き。日付ごとにいいね順で
@@ -38,6 +42,7 @@ if "--event-days" in sys.argv[3:]:
         while s0 <= e0:
             EVENT_DAYS.add(s0.isoformat())
             s0 += datetime.timedelta(days=1)
+PICK = "--pick" in sys.argv[3:]
 skipped_days = 0
 path = ROOT / "data" / ("x_top5.json" if kind == "fan" else "x_members.json")
 cap = 30 if kind == "fan" else 5
@@ -53,14 +58,23 @@ for l in open(src, encoding="utf-8"):
     if sum(int(a) + int(b) for a, b in it) % M != int(s) or len(it) != int(c):
         bad.append(d)
         continue
+    if PICK and EVENT_DAYS is not None and d not in EVENT_DAYS:
+        prev = (datetime.date.fromisoformat(d) - datetime.timedelta(days=1)).isoformat()
+        if prev in EVENT_DAYS:
+            d = prev
     if EVENT_DAYS is not None and d not in EVENT_DAYS:
         skipped_days += 1
         continue
     cur = {t["id"]: t for t in X["dates"].get(d, [])}
     before = set(cur)
     for a, b in it:
-        cur[a] = {"id": a, "likes": int(b)}
-    lst = sorted(cur.values(), key=lambda t: -t["likes"])[:cap]
+        t = {"id": a, "likes": int(b)}
+        if PICK or cur.get(a, {}).get("pick"):
+            t["pick"] = True
+        cur[a] = t
+    picks = [t for t in cur.values() if t.get("pick")]
+    rest = sorted((t for t in cur.values() if not t.get("pick")), key=lambda t: -t["likes"])
+    lst = sorted(picks + rest[:max(0, cap - len(picks))], key=lambda t: -t["likes"])
     new = {t["id"] for t in lst} - before
     if new or lst != X["dates"].get(d):
         X["dates"][d] = lst
