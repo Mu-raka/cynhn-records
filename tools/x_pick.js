@@ -7,8 +7,8 @@
      ただし翌日も出来事の日なら、翌日の投稿はその日の検索のほうで扱う）
    ・Xの検索は回数制限がきついので、1回の実行で開く検索ページは window.__PK_BUDGET 回まで（既定30回）。
      残りの日付は "cyn_pick_progress"（まだ調べていない日付の配列）に残し、window.__PK_RESUME = true で続きから
-   ・回数制限（「問題が発生しました」）が出たら10分待って1回だけやり直し、だめならそこで止める（window.__pk.stopped）。
-     window.__PK_RETRIES を2以上にすると、その回数まで15分ずつ待ってやり直す
+   ・回数制限（「問題が発生しました」）が出たら、1分待って「やりなおす」ボタンを押す。だめならそこで止める（window.__pk.stopped）。
+     window.__PK_RETRIES を2以上にすると、その回数まで（2回目からは15分ずつ待って）「やりなおす」を押す
    使い方：
      週1：window.__PK_DATES = [14日前〜昨日の出来事の日付]; のあとにこのファイルの中身を実行
      過去分をまとめて：window.__PK_DATES = [全部の出来事の日付]; window.__PK_BUDGET = 2000; window.__PK_RETRIES = 30;
@@ -44,15 +44,26 @@
     n = parseFloat(m[1].replace(/,/g, "")); if (m[2] === "K") n *= 1e3; if (m[2] === "M") n *= 1e6; return Math.round(n);
   }
   var RETRIES = window.__PK_RETRIES || 1, WAIT = RETRIES > 1 ? 900000 : 600000;
+  var isErr = function () { return /問題が発生しました|Something went wrong/.test(body()) && !document.querySelector('article[data-testid="tweet"]'); };
+  async function waitLoad() { for (var k = 0; k < 24; k++) { await S(500); if (document.querySelector('article[data-testid="tweet"] time') || (k > 8 && /検索結果はありません|No results|問題が発生/.test(body()))) break; } }
+  // エラーの画面はページ内で検索し直しても残り続けるので、「やりなおす」ボタンを押して取り直す
+  async function retryBtn() {
+    var b = Array.prototype.find.call(document.querySelectorAll('button,[role="button"]'), function (x) { return /^(やりなおす|再試行|Retry)$/.test(x.innerText.trim()); });
+    if (!b) return false; b.click(); await waitLoad(); return !isErr();
+  }
   async function open1(q) {
-    for (var t = 0; t <= RETRIES; t++) {
-      budget--;
-      history.pushState({}, "", "/search?q=" + encodeURIComponent(q) + "&src=typed_query&f=live");
-      window.dispatchEvent(new PopStateEvent("popstate", { state: {} }));
-      for (var k = 0; k < 24; k++) { await S(500); if (document.querySelector('article[data-testid="tweet"] time') || (k > 8 && /検索結果はありません|No results|問題が発生/.test(body()))) break; }
-      if (!(/問題が発生しました|Something went wrong/.test(body()) && !document.querySelector('article[data-testid="tweet"]'))) return true;
+    budget--;
+    history.pushState({}, "", "/search?q=" + encodeURIComponent(q) + "&src=typed_query&f=live");
+    window.dispatchEvent(new PopStateEvent("popstate", { state: {} }));
+    await waitLoad();
+    if (!isErr()) return true;
+    for (var t = 0; t < RETRIES; t++) {
       R.log.push("X error (" + (t + 1) + ") " + new Date().toLocaleTimeString());
-      if (t < RETRIES) { R.status = R.status.replace(/ \/ waiting.*$/, "") + " / waiting " + (WAIT / 60000) + "min (" + (t + 1) + ")"; await S(WAIT); }
+      var w = t === 0 ? 60000 : WAIT;
+      R.status = R.status.replace(/ \/ waiting.*$/, "") + " / waiting " + (w / 60000) + "min (" + (t + 1) + ")";
+      await S(w);
+      budget--;
+      if (await retryBtn()) return true;
     }
     return false;
   }
