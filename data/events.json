@@ -31167,8 +31167,8 @@
   {
    "date": "2026-12-07",
    "type": "live",
-   "title": "イベントライブ出演予定",
-   "note": "",
+   "title": "MUD PARTY 2026 Vol.2",
+   "note": "Spotify O-WEST",
    "hl": false,
    "src": [
     {
@@ -31263,10 +31263,30 @@
    "added": "2026-11-01"
   },
   {
+   "date": "2026-12-26",
+   "type": "live",
+   "title": "こぐまカリー主催「大忘年会Mash UP！わが街編」",
+   "note": "大阪•心斎橋SUNHALL",
+   "hl": false,
+   "src": [
+    {
+     "label": "CYNHN 公式サイト",
+     "url": "https://cynhn.com/contents/1124919"
+    }
+   ],
+   "tags": [
+    "フェス"
+   ],
+   "imp": 1,
+   "members": [],
+   "id": 689630,
+   "added": "2026-11-16"
+  },
+  {
    "date": "2026-12-27",
    "type": "live",
-   "title": "イベントライブ出演予定",
-   "note": "",
+   "title": "LEADING PREMIUM 年末感謝祭'26",
+   "note": "渋谷複数会場同時開催",
    "hl": false,
    "src": [
     {
@@ -31301,6 +31321,46 @@
    "members": [],
    "id": 578093,
    "added": "2026-11-01"
+  },
+  {
+   "date": "2026-12-29",
+   "type": "live",
+   "title": "良イ音シヲ！LEGEND SONGS 2026",
+   "note": "KANDA SQUARE HALL",
+   "hl": false,
+   "src": [
+    {
+     "label": "CYNHN 公式サイト",
+     "url": "https://cynhn.com/contents/1127306"
+    }
+   ],
+   "tags": [
+    "ライブ"
+   ],
+   "imp": 1,
+   "members": [],
+   "id": 831110,
+   "added": "2026-11-16"
+  },
+  {
+   "date": "2027-02-21",
+   "type": "live",
+   "title": "Output 15th ANNIVERSARY『CYNHN × fishbowl TWO-MAN LIVE』",
+   "note": "沖縄Output",
+   "hl": false,
+   "src": [
+    {
+     "label": "CYNHN 公式サイト",
+     "url": "https://cynhn.com/contents/1127250"
+    }
+   ],
+   "tags": [
+    "ライブ"
+   ],
+   "imp": 1,
+   "members": [],
+   "id": 182881,
+   "added": "2026-11-16"
   },
   {
    "date": "2027-03-13",
