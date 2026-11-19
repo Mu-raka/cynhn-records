@@ -232,9 +232,10 @@
   // Xの埋め込み用ページ（platform.twitter.com/embed/Tweet.html）をiframeで直接はめ込む。widgets.js は使わない
   var STEP = 5, MAX = 30, SHOWN = {};
   function tweetItem(t, i, member) {
-    var link = '<a class="tw-head ext" href="https://x.com/i/status/' + esc(t.id) + '" target="_blank" rel="noopener">' + (member === true ? '<b>メンバー</b>' : '<b>ふぁんず</b>') + '<span class="likes">♥ ' + Number(t.likes).toLocaleString() + '</span><span class="open">Xで開く</span></a>';
+    var who = t.label || (member === true ? "メンバー" : "ふぁんず");
+    var link = '<a class="tw-head ext" href="https://x.com/i/status/' + esc(t.id) + '" target="_blank" rel="noopener">' + '<b>' + esc(who) + '</b>' + '<span class="likes">♥ ' + Number(t.likes).toLocaleString() + '</span><span class="open">Xで開く</span></a>';
     var fr = cfg.embedTweets !== false
-      ? '<iframe class="tw-frame" title="Xの投稿 ' + (member === true ? "メンバー " : "ふぁんず ") + (i + 1) + '" loading="lazy" scrolling="no" frameborder="0" allowtransparency="true" ' +
+      ? '<iframe class="tw-frame" title="Xの投稿 ' + esc(who) + " " + (i + 1) + '" loading="lazy" scrolling="no" frameborder="0" allowtransparency="true" ' +
         'src="https://platform.twitter.com/embed/Tweet.html?dnt=true&hideThread=true&lang=ja&theme=' + (isDark() ? "dark" : "light") + '&id=' + esc(t.id) + '"></iframe>' : "";
     return '<li class="tw">' + link + fr + "</li>";
   }
