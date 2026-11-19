@@ -325,3 +325,20 @@ body.is-page #ov, body.is-page #home, body.is-page #list, body.is-page #about { 
 .log-paste textarea { font: inherit; font-size: .85rem; padding: 8px 10px; border: 1px solid var(--mist); border-radius: 8px; background: var(--card); color: var(--ink); width: 100%; }
 .log-paste .btn { justify-self: start; }
 .log-msg { font-size: .85rem; color: var(--blue); min-height: 1.4em; }
+
+/* ライブ特設ページ */
+.sp-banner { display: grid; gap: 2px; margin: 4px 0 14px; padding: 10px 14px; border: 1px solid var(--blue-2); border-radius: 10px; text-decoration: none; color: var(--ink); background: var(--card); }
+.sp-banner b { font-size: .8rem; color: var(--blue); }
+.sp-banner span { font-size: .95rem; }
+.quick a.quick-sp b { color: var(--blue); }
+.sp-date { color: var(--ink-2); margin: -4px 0 8px; }
+.sp-intro p, .sp-item p, .sp-analysis p { line-height: 1.85; margin: 0 0 10px; max-width: 42em; }
+.sp-toc { display: flex; flex-wrap: wrap; gap: 8px; margin: 14px 0 6px; }
+.sp-toc a { display: inline-block; font-size: .85rem; border: 1px solid var(--mist); border-radius: 999px; padding: 4px 14px; text-decoration: none; background: var(--card); color: var(--ink); }
+.sp-toc a:hover { border-color: var(--blue-2); }
+.sp-sec { scroll-margin-top: 70px; border-top: 1px solid var(--mist); margin-top: 28px; }
+.sp-h { font-size: 1rem; margin: 22px 0 6px; }
+.sp-h small { font-family: var(--sans); font-weight: 400; font-size: .75rem; color: var(--ink-2); margin-left: 6px; }
+.sp-item .tweets { margin-top: 10px; }
+.sp-analysis { background: var(--card); border: 1px solid var(--mist); border-radius: 12px; padding: 4px 18px 10px; margin-top: 18px; }
+.sp-analysis h4 { font-size: .92rem; margin: 16px 0 4px; color: var(--blue); }

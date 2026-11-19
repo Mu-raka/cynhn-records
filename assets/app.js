@@ -215,6 +215,7 @@
     var yt = ytOf(e);
     if (yt) html += '<a class="yt-thumb ext" href="https://www.youtube.com/watch?v=' + yt + '" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/' + yt + '/mqdefault.jpg" alt="YouTubeの動画サムネイル" loading="lazy" width="320" height="180"><span>YouTubeで見る</span></a>';
     html += '<h4>参考URL</h4><ul class="srcs">' + srcs + "</ul>";
+    if (e.special) html += '<a class="sp-banner" href="#special/' + esc(e.date) + '"><b>特設ページ</b><span>' + esc(e.special) + " ›</span></a>";
     if (e.setlist && e.setlist.length) html += "<h4>セットリスト</h4>" + setlistHTML(e.setlist);
     if (/^\d{4}-\d{2}-\d{2}$/.test(e.date) && e.date >= "2017-06-01" && !isUpcoming(e.date)) {
       var q = "CYNHN since:" + e.date + " until:" + nextDay(e.date);
@@ -317,7 +318,7 @@
   }
   function applyHash(scroll) {
     var h = decodeURIComponent(location.hash.slice(1));
-    if (/^(songs|song\/.+|members|member\/.+|recap(\/\d{4})?|mylog)$/.test(h)) {
+    if (/^(songs|song\/.+|members|member\/.+|recap(\/\d{4})?|mylog|special\/\d{4}-\d{2}-\d{2})$/.test(h)) {
       document.body.classList.add("is-page");
       if (window.CYN_ROUTE) window.CYN_ROUTE(h);
       if (scroll !== false) window.scrollTo(0, 0);

@@ -1,5 +1,5 @@
 /* 青の記録：トップの「今日は何の日」「思い出をひとつ」「最近追加」と、特集ページ（曲・メンバー・年の振り返り・参戦記録）
-   app.js がデータを読み込んだあと（cyn:ready）に動く。ページは #songs / #song/曲名 / #members / #member/名前 / #recap/2023 / #mylog */
+   app.js がデータを読み込んだあと（cyn:ready）に動く。ページは #songs / #song/曲名 / #members / #member/名前 / #recap/2023 / #mylog / #special/2026-11-16 */
 (function () {
   "use strict";
   var $ = function (id) { return document.getElementById(id); };
@@ -265,6 +265,52 @@
     bindLogTools();
   }
 
+  // ---- ライブ特設ページ（#special/2026-11-16）。中身は data/special/日付.json（ツイートはIDといいね数だけ、文章はまとめた人が書いたもの）
+  var SP_STEP = 6;
+  function spTweets(list, key) {
+    if (!list || !list.length) return "";
+    var n = Math.min(SP_STEP, list.length);
+    var html = '<ol class="tweets sp-tw" data-key="' + C.esc(key) + '">' + list.slice(0, n).map(function (t, i) { return C.tweetItem(t, i, !!t.m); }).join("") + "</ol>";
+    if (list.length > n) html += '<div class="top-btns"><button type="button" class="btn sp-more" data-key="' + C.esc(key) + '" data-n="' + n + '">さらに表示する（残り' + (list.length - n) + "件）</button></div>";
+    return html;
+  }
+  function spParas(a) { return (a || []).map(function (t) { return "<p>" + C.esc(t) + "</p>"; }).join(""); }
+  function renderSpecial(date) {
+    var e = C.DATA.events.filter(function (x) { return x.date === date && x.special; })[0];
+    page("読み込み中…", '<p class="muted">特設ページを読み込んでいます。</p>');
+    fetch("data/special/" + date + ".json", { cache: "no-cache" }).then(function (r) { if (!r.ok) throw 0; return r.json(); }).then(function (d) {
+      var LISTS = {}, body = "";
+      body += '<p class="sp-date">' + C.esc(ymd(d.date)) + (d.venue ? "　" + C.esc(d.venue) : "") + "</p>";
+      if (d.stats) body += '<div class="stats">' + (d.stats || []).map(function (s) { return stat(C.esc(String(s.n)), C.esc(s.label)); }).join("") + "</div>";
+      body += '<div class="sp-intro">' + spParas(d.intro) + "</div>";
+      body += '<nav class="sp-toc" aria-label="この特集の目次">' + d.sections.map(function (s, i) { return '<a href="#special/' + date + '" data-sec="sp-' + i + '">' + C.esc(s.title) + "</a>"; }).join("") + "</nav>";
+      d.sections.forEach(function (s, i) {
+        body += '<section class="sp-sec" id="sp-' + i + '"><h2 class="pg-h">' + C.esc(s.title) + "</h2>" + (s.lead ? '<p class="lead">' + C.esc(s.lead) + "</p>" : "");
+        if (s.setlist && s.setlist.length) body += '<h3 class="sp-h">セットリスト' + (s.setlistNote ? " <small>" + C.esc(s.setlistNote) + "</small>" : "") + "</h3>" + C.setlistHTML(s.setlist);
+        (s.items || []).forEach(function (it, j) {
+          var key = i + "-" + j; LISTS[key] = it.tweets || [];
+          body += '<div class="sp-item"><h3 class="sp-h">' + C.esc(it.title) + (it.tweets && it.tweets.length ? " <small>" + it.tweets.length + "件</small>" : "") + "</h3>" + spParas(it.text) + spTweets(it.tweets, key) + "</div>";
+        });
+        if (s.analysis && s.analysis.length) body += '<div class="sp-analysis"><h3 class="sp-h">' + C.esc(s.analysisTitle || "総合分析") + "</h3>" + s.analysis.map(function (a) {
+          return (a.h ? "<h4>" + C.esc(a.h) + "</h4>" : "") + spParas(a.p);
+        }).join("") + "</div>";
+        body += "</section>";
+      });
+      if (d.note) body += '<p class="note muted">' + C.esc(d.note) + "</p>";
+      if (e) body += '<p class="note"><a href="#' + e.date.slice(0, 4) + "/" + e.id + '">年表でこの公演を見る ›</a></p>';
+      page(C.esc(d.title), body, e ? '<a href="#' + e.date.slice(0, 4) + "/" + e.id + '">' + C.esc(ymd(e.date)) + "</a>" : "");
+      var pg = $("page");
+      pg.querySelectorAll(".sp-toc a").forEach(function (a) { a.addEventListener("click", function (ev) { ev.preventDefault(); var t = $(a.dataset.sec); if (t) t.scrollIntoView({ behavior: "smooth" }); }); });
+      pg.addEventListener("click", function (ev) {
+        var b = ev.target.closest(".sp-more"); if (!b) return;
+        var key = b.dataset.key, list = LISTS[key], n = +b.dataset.n, m = Math.min(n + SP_STEP, list.length);
+        var ol = pg.querySelector('.sp-tw[data-key="' + key + '"]');
+        ol.insertAdjacentHTML("beforeend", list.slice(n, m).map(function (t, k) { return C.tweetItem(t, n + k, !!t.m); }).join(""));
+        if (m >= list.length) b.parentNode.remove(); else { b.dataset.n = m; b.textContent = "さらに表示する（残り" + (list.length - m) + "件）"; }
+      });
+    }).catch(function () { page("特設ページ", '<p class="muted">特設ページのデータを読み込めませんでした。</p>'); });
+  }
+
   function route(h) {
     if (!C) return;
     var m;
@@ -274,6 +320,7 @@
     else if ((m = h.match(/^member\/(.+)$/))) renderMember(m[1]);
     else if ((m = h.match(/^recap(?:\/(\d{4}))?$/))) renderRecap(m && m[1]);
     else if (h === "mylog") renderMylog();
+    else if ((m = h.match(/^special\/(\d{4}-\d{2}-\d{2})$/))) renderSpecial(m[1]);
   }
   window.CYN_ROUTE = route;
 
@@ -282,6 +329,8 @@
     renderToday(); renderRecent();
     $("memory-btn").addEventListener("click", randomMemory);
     var y = C.TODAY.slice(0, 4); $("recap-link").href = "#recap/" + y;
+    var sp = C.DATA.events.filter(function (e) { return e.special && !C.isUpcoming(e.date); }).pop(), qk = document.querySelector("nav.quick");
+    if (sp && qk) qk.insertAdjacentHTML("afterbegin", '<a href="#special/' + sp.date + '" class="quick-sp"><b>特設：' + C.esc(sp.special) + "</b><span>" + C.esc(ymd(sp.date)) + " の感想・気づき・セトリ考察</span></a>");
     // ツイートデータは後から届くので、少し待って「今日」をもう一度描く
     setTimeout(renderToday, 1500);
     var h = decodeURIComponent(location.hash.slice(1));
