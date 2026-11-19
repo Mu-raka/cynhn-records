@@ -267,11 +267,11 @@
 
   // ---- ライブ特設ページ（#special/2026-11-16）。中身は data/special/日付.json（ツイートはIDといいね数だけ、文章はまとめた人が書いたもの）
   var SP_STEP = 6;
-  function spTweets(list, key) {
+  function spTweets(list, key, step) {
     if (!list || !list.length) return "";
-    var n = Math.min(SP_STEP, list.length);
+    var n = Math.min(step || SP_STEP, list.length);
     var html = '<ol class="tweets sp-tw" data-key="' + C.esc(key) + '">' + list.slice(0, n).map(function (t, i) { return C.tweetItem(t, i, !!t.m); }).join("") + "</ol>";
-    if (list.length > n) html += '<div class="top-btns"><button type="button" class="btn sp-more" data-key="' + C.esc(key) + '" data-n="' + n + '">さらに表示する（残り' + (list.length - n) + "件）</button></div>";
+    if (list.length > n) html += '<div class="top-btns"><button type="button" class="btn sp-more" data-key="' + C.esc(key) + '" data-n="' + n + '" data-step="' + (step || SP_STEP) + '">さらに表示する（残り' + (list.length - n) + "件）</button>" + (step ? '<button type="button" class="btn sp-all" data-key="' + C.esc(key) + '">残りをすべて表示</button>' : "") + "</div>";
     return html;
   }
   function spParas(a) { return (a || []).map(function (t) { return "<p>" + C.esc(t) + "</p>"; }).join(""); }
@@ -289,7 +289,7 @@
         if (s.setlist && s.setlist.length) body += '<h3 class="sp-h">セットリスト' + (s.setlistNote ? " <small>" + C.esc(s.setlistNote) + "</small>" : "") + "</h3>" + C.setlistHTML(s.setlist);
         (s.items || []).forEach(function (it, j) {
           var key = i + "-" + j; LISTS[key] = it.tweets || [];
-          body += '<div class="sp-item"><h3 class="sp-h">' + C.esc(it.title) + (it.tweets && it.tweets.length ? " <small>" + it.tweets.length + "件</small>" : "") + "</h3>" + spParas(it.text) + spTweets(it.tweets, key) + "</div>";
+          body += '<div class="sp-item"><h3 class="sp-h">' + C.esc(it.title) + (it.tweets && it.tweets.length ? " <small>" + it.tweets.length + "件</small>" : "") + "</h3>" + spParas(it.text) + spTweets(it.tweets, key, it.step) + "</div>";
         });
         if (s.analysis && s.analysis.length) body += '<div class="sp-analysis"><h3 class="sp-h">' + C.esc(s.analysisTitle || "総合分析") + "</h3>" + s.analysis.map(function (a) {
           return (a.h ? "<h4>" + C.esc(a.h) + "</h4>" : "") + spParas(a.p);
@@ -302,8 +302,8 @@
       var pg = $("page");
       pg.querySelectorAll(".sp-toc a").forEach(function (a) { a.addEventListener("click", function (ev) { ev.preventDefault(); var t = $(a.dataset.sec); if (t) t.scrollIntoView({ behavior: "smooth" }); }); });
       pg.addEventListener("click", function (ev) {
-        var b = ev.target.closest(".sp-more"); if (!b) return;
-        var key = b.dataset.key, list = LISTS[key], n = +b.dataset.n, m = Math.min(n + SP_STEP, list.length);
+        var all = ev.target.closest(".sp-all"), b = all ? all.parentNode.querySelector(".sp-more") : ev.target.closest(".sp-more"); if (!b) return;
+        var key = b.dataset.key, list = LISTS[key], n = +b.dataset.n, m = all ? list.length : Math.min(n + (+b.dataset.step || SP_STEP), list.length);
         var ol = pg.querySelector('.sp-tw[data-key="' + key + '"]');
         ol.insertAdjacentHTML("beforeend", list.slice(n, m).map(function (t, k) { return C.tweetItem(t, n + k, !!t.m); }).join(""));
         if (m >= list.length) b.parentNode.remove(); else { b.dataset.n = m; b.textContent = "さらに表示する（残り" + (list.length - m) + "件）"; }
