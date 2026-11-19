@@ -2,8 +2,10 @@
    ・A：キーワード（CYNHN など）を時間で区切って「最新」タブで検索（話題タブも1回）→ だれの投稿でも集める
    ・B：ライブの言葉（Zepp・ワンマン・セトリなど）で検索 → ファン一覧（localStorage "cyn_fanlist"）の人だけ残す
    ・C：ファン一覧の人を from: でまとめて検索（キーワードなし）→ ライブの話っぽいものは後で選ぶ
-   使い方：window.__SP = { start: "2026-11-16", days: 2 };（話題タブを飛ばすときは skipTop: true、一部だけなら phases: "BC"。回数制限がきついときは wait: 待つ分, retries: やり直す回数, gap: 検索の間の秒数）
-   A と C は途中まで進んだところを localStorage "cyn_special_apos" / "cyn_special_cpos" に残し、次はそこから続ける（最初からやるときは両方消す） のあとにこのファイルの中身を実行。
+   使い方：window.__SP = { start: "2026-11-16", days: 2 }; のあとにこのファイルの中身を実行。
+     話題タブを飛ばすときは skipTop: true、一部だけなら phases: "AB"。回数制限がきついときは wait: 待つ分, retries: やり直す回数, gap: 検索の間の秒数。
+     1回の検索で下へ送る回数は scrolls（既定60。多いとタブが固まりやすい）
+     A・B・C は進んだところを localStorage "cyn_special_apos" / "cyn_special_bpos" / "cyn_special_cpos" に残し、次はそこから続ける（最初からやるときは消す）
    進み具合は window.__sp.status / window.__sp.log。結果は localStorage "cyn_special_out"（1行1投稿：ID いいね 印 時刻 本文）
    印：f=ファン一覧の人 m=メンバー o=公式・お店など r=返信 q=引用 p=画像・動画つき
    本文はこの作業のためだけに手元で読む（リポジトリやサイトには入れない）。アカウント名は出力しない */
@@ -47,7 +49,7 @@
     for (var k = 0; k < 30; k++) { await S(500); if (document.querySelector('article[data-testid="tweet"] time') || (k > 8 && /検索結果はありません|No results|問題が発生/.test(body()))) break; }
     if (/問題が発生しました|Something went wrong/.test(body()) && !document.querySelector('article[data-testid="tweet"]')) return { err: true };
     var got = 0, idle = 0;
-    for (var r = 0; r < 120 && idle < 4; r++) {
+    for (var r = 0; r < (CFG.scrolls || 60) && idle < 4; r++) {
       var before = got, seen = 0;
       document.querySelectorAll('article[data-testid="tweet"]').forEach(function (a) {
         var t = a.querySelector("time"), l = t && t.closest("a"); if (!l) return;
@@ -98,11 +100,12 @@
       }
     }
     if (phases.indexOf("B") >= 0 && !R.stopped) {
-      for (var b = 0; b < days * 2 && !R.stopped; b++) {
+      for (var b = +(localStorage.getItem("cyn_special_bpos") || 0); b < days * 2 && !R.stopped; b++) {
         var bs = t0 + b * 43200;
         R.status = "B " + (b + 1) + "/" + days * 2;
         var nb = await search(LIVEKW + " since_time:" + bs + " until_time:" + (bs + 43200), true, "fan"); save();
-        R.log.push("B " + (b + 1) + " +" + nb); await S(6000);
+        if (nb >= 0) localStorage.setItem("cyn_special_bpos", String(b + 1));
+        R.log.push("B " + (b + 1) + " +" + nb); await S((CFG.gap || 6) * 1000);
       }
     }
     if (phases.indexOf("C") >= 0 && !R.stopped && FANS.size) {
