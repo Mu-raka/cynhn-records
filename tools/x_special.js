@@ -2,7 +2,8 @@
    ・A：キーワード（CYNHN など）を時間で区切って「最新」タブで検索（話題タブも1回）→ だれの投稿でも集める
    ・B：ライブの言葉（Zepp・ワンマン・セトリなど）で検索 → ファン一覧（localStorage "cyn_fanlist"）の人だけ残す
    ・C：ファン一覧の人を from: でまとめて検索（キーワードなし）→ ライブの話っぽいものは後で選ぶ
-   使い方：window.__SP = { start: "2026-11-16", days: 2 };（話題タブを飛ばすときは skipTop: true、一部だけなら phases: "BC"） のあとにこのファイルの中身を実行。
+   使い方：window.__SP = { start: "2026-11-16", days: 2 };（話題タブを飛ばすときは skipTop: true、一部だけなら phases: "BC"。回数制限がきついときは wait: 待つ分, retries: やり直す回数, gap: 検索の間の秒数）
+   A と C は途中まで進んだところを localStorage "cyn_special_apos" / "cyn_special_cpos" に残し、次はそこから続ける（最初からやるときは両方消す） のあとにこのファイルの中身を実行。
    進み具合は window.__sp.status / window.__sp.log。結果は localStorage "cyn_special_out"（1行1投稿：ID いいね 印 時刻 本文）
    印：f=ファン一覧の人 m=メンバー o=公式・お店など r=返信 q=引用 p=画像・動画つき
    本文はこの作業のためだけに手元で読む（リポジトリやサイトには入れない）。アカウント名は出力しない */
@@ -28,12 +29,13 @@
   }
   var body = function () { return (document.querySelector("main") || document.body).innerText; };
   async function search(q, live, keep) {
-    for (var t = 0; t < 3; t++) {
+    var TRY = CFG.retries || 3, WAIT = (CFG.wait || 15) * 60000;
+    for (var t = 0; t < TRY; t++) {
       R.searches++;
       var r = await search1(q, live, keep);
       if (!r.err) return r.n;
       R.log.push("X error " + new Date().toLocaleTimeString());
-      if (t < 2) { var st = R.status; R.status = st + " / waiting 15min"; await S(900000); R.status = st; }
+      if (t < TRY - 1) { var st = R.status; R.status = st + " / waiting " + (WAIT / 60000) + "min"; await S(WAIT); R.status = st; }
     }
     R.errors++; R.stopped = true;
     return -1;
@@ -87,10 +89,12 @@
     var phases = (CFG.phases || "ABC").split("");
     if (phases.indexOf("A") >= 0) {
       if (!CFG.skipTop) { R.status = "A top"; await search(KW + " since_time:" + t0 + " until_time:" + t1, false); save(); await S(6000); }
-      for (var i = 0; i < slices.length && !R.stopped; i++) {
+      var GAP = (CFG.gap || 6) * 1000;
+      for (var i = +(localStorage.getItem("cyn_special_apos") || 0); i < slices.length && !R.stopped; i++) {
         R.status = "A " + (i + 1) + "/" + slices.length;
         var n = await search(KW + " since_time:" + slices[i][0] + " until_time:" + slices[i][1], true); save();
-        R.log.push("A " + (i + 1) + " +" + n); await S(6000);
+        if (n >= 0) localStorage.setItem("cyn_special_apos", String(i + 1));
+        R.log.push("A " + (i + 1) + " +" + n); await S(GAP);
       }
     }
     if (phases.indexOf("B") >= 0 && !R.stopped) {
